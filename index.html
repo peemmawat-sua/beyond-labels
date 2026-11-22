@@ -1,0 +1,2858 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BEYOND LABELS — Rethinking Gender Expectations in Media &amp; Social Media</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Plus Jakarta Sans', 'sans-serif'],
+            serif: ['Fraunces', 'Georgia', 'serif'],
+          },
+          colors: {
+            cream: '#FAF8F4',
+            paper: '#F4F0E8',
+            charcoal: '#1C2421',
+            sage: {
+              50: '#F2F7F4',
+              100: '#E2EDE6',
+              200: '#C5DBC9',
+              500: '#5F8D70',
+              600: '#497358',
+              800: '#274232',
+            },
+            blush: {
+              50: '#FDF5F4',
+              100: '#F9E6E3',
+              200: '#F2CBC5',
+              500: '#D4746A',
+              700: '#9E473E',
+            },
+            skyPastel: {
+              50: '#F2F7FA',
+              100: '#E1EEF5',
+              200: '#C2DCEB',
+              600: '#3D7694',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #FAF8F4;
+      color: #1C2421;
+    }
+    .botanical-grid {
+      background-image: radial-gradient(rgba(95, 141, 112, 0.14) 1px, transparent 1px);
+      background-size: 22px 22px;
+    }
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-6px); }
+    }
+    .animate-float {
+      animation: floatSlow 5s ease-in-out infinite;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-up {
+      animation: fadeUp 0.3s ease-out forwards;
+    }
+  </style>
+</head>
+<body class="min-h-screen antialiased selection:bg-sage-200 selection:text-charcoal">
+
+  <!-- =========================================================
+       1. MINIMAL STICKY TOP NAVIGATION
+  ========================================================== -->
+  <header class="sticky top-0 z-40 bg-cream/90 backdrop-blur-md border-b border-stone-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
+      <!-- Brand Mark -->
+      <a href="#top" class="flex items-center gap-2.5 group focus:outline-none shrink-0">
+        <div class="w-9 h-9 rounded-xl bg-sage-600 text-white flex items-center justify-center shadow-sm group-hover:bg-sage-800 transition-colors">
+          <!-- Botanical Sparkle SVG Icon -->
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c.5 4.5 3.5 7.5 8 8-4.5.5-7.5 3.5-8 8-.5-4.5-3.5-7.5-8-8 4.5-.5 7.5-3.5 8-8z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 19c1.5-2.5 3.5-4.5 6-6"/>
+          </svg>
+        </div>
+        <span class="font-display font-extrabold tracking-tight text-base sm:text-lg text-charcoal">
+          BEYOND LABELS
+        </span>
+      </a>
+
+      <!-- Smooth Scroll Links -->
+      <nav class="hidden lg:flex items-center gap-5 text-sm font-medium text-stone-600">
+        <a href="#why-it-matters" class="hover:text-charcoal transition-colors">Why It Matters</a>
+        <a href="#visual-stories" class="hover:text-charcoal transition-colors">Photo Stories</a>
+        <a href="#infographic-studio" class="hover:text-charcoal transition-colors">Infographics</a>
+        <a href="#spot-the-bias" class="hover:text-charcoal transition-colors">Research Quiz</a>
+        <a href="#community-forum" class="hover:text-charcoal transition-colors">Community</a>
+        <a href="#break-the-cycle" class="hover:text-charcoal transition-colors">Pledge</a>
+      </nav>
+
+      <!-- Auth Controls + Primary Nav CTA -->
+      <div class="flex items-center gap-2">
+        <div id="auth-header-slot" class="flex items-center gap-2">
+          <!-- Populated dynamically by JS -->
+        </div>
+
+        <a href="#infographic-studio" class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-charcoal hover:bg-sage-800 text-white text-xs sm:text-sm font-semibold shadow-sm transition-all">
+          <span>Share</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+          </svg>
+        </a>
+
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-xl border border-stone-200 bg-white text-charcoal hover:bg-paper transition-colors" aria-label="Toggle navigation menu" aria-expanded="false">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="hidden lg:hidden border-t border-stone-200/80 bg-cream/95 backdrop-blur-md px-4 py-4 space-y-2 animate-fade-up">
+      <a href="#why-it-matters" onclick="closeMobileMenu()" class="block px-3 py-2 rounded-xl text-sm font-medium text-stone-700 hover:bg-paper hover:text-charcoal">Why It Matters</a>
+      <a href="#visual-stories" onclick="closeMobileMenu()" class="block px-3 py-2 rounded-xl text-sm font-medium text-stone-700 hover:bg-paper hover:text-charcoal">Photo Stories</a>
+      <a href="#infographic-studio" onclick="closeMobileMenu()" class="block px-3 py-2 rounded-xl text-sm font-medium text-stone-700 hover:bg-paper hover:text-charcoal">Infographic Studio</a>
+      <a href="#spot-the-bias" onclick="closeMobileMenu()" class="block px-3 py-2 rounded-xl text-sm font-medium text-stone-700 hover:bg-paper hover:text-charcoal">Research Quiz</a>
+      <a href="#community-forum" onclick="closeMobileMenu()" class="block px-3 py-2 rounded-xl text-sm font-medium text-stone-700 hover:bg-paper hover:text-charcoal">Community Forum</a>
+      <a href="#break-the-cycle" onclick="closeMobileMenu()" class="block px-3 py-2 rounded-xl text-sm font-medium text-stone-700 hover:bg-paper hover:text-charcoal">Break the Cycle</a>
+      <div id="mobile-auth-slot" class="pt-2 border-t border-stone-200/80 flex flex-wrap gap-2">
+        <!-- Populated dynamically by JS -->
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- =========================================================
+         2. EDITORIAL HERO SECTION
+    ========================================================== -->
+    <section class="relative overflow-hidden botanical-grid border-b border-stone-200/70">
+      <!-- Soft decorative pastel blurs -->
+      <div class="pointer-events-none absolute -top-24 -left-24 w-80 h-80 rounded-full bg-sage-200/40 blur-3xl"></div>
+      <div class="pointer-events-none absolute top-28 -right-24 w-96 h-96 rounded-full bg-blush-200/45 blur-3xl"></div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 lg:py-24 relative">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+
+          <!-- Left Editorial Copy (7 Cols) -->
+          <div class="lg:col-span-7 space-y-6">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sage-100 border border-sage-200 text-sage-800 text-xs font-semibold tracking-wide">
+              <span class="w-2 h-2 rounded-full bg-sage-600"></span>
+              <span>RETHINKING GENDER EXPECTATIONS IN MEDIA &amp; SOCIAL MEDIA</span>
+            </div>
+
+            <h1 class="font-serif text-4xl sm:text-5xl lg:text-[58px] font-semibold text-charcoal leading-[1.08] tracking-tight">
+              Abilities &amp; Personalities Have <span class="italic text-sage-600">No Gender.</span>
+            </h1>
+
+            <p class="text-base sm:text-lg text-stone-600 leading-relaxed max-w-2xl">
+              From vintage household ads to modern social media algorithms, repeated messages quietly teach us outdated rules about how men and women should look, feel, and live. When we question those labels, everyone is free to be themselves.
+            </p>
+
+            <!-- Hero CTAs -->
+            <div class="flex flex-wrap items-center gap-3.5 pt-1">
+              <a href="#infographic-studio" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-sage-600 hover:bg-sage-800 text-white text-sm font-semibold shadow-sm transition-all">
+                <span>Explore Shareable Infographics</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </a>
+              <a href="#spot-the-bias" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-white hover:bg-paper text-charcoal border border-stone-300 text-sm font-semibold transition-all">
+                <span>Test Your Perspective</span>
+              </a>
+            </div>
+
+            <!-- Subtle Editorial Metrics / Takeaways -->
+            <div class="pt-4 grid grid-cols-3 gap-4 max-w-lg border-t border-stone-200/80">
+              <div>
+                <span class="font-serif text-xl sm:text-2xl font-bold text-charcoal block">5 Core</span>
+                <span class="text-xs text-stone-500">Everyday Media Tropes</span>
+              </div>
+              <div>
+                <span class="font-serif text-xl sm:text-2xl font-bold text-sage-600 block">4:5 &amp; 9:16</span>
+                <span class="text-xs text-stone-500">Ready-to-Share PNGs</span>
+              </div>
+              <div>
+                <span class="font-serif text-xl sm:text-2xl font-bold text-blush-700 block">Zero</span>
+                <span class="text-xs text-stone-500">Gender Double Standards</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Interactive Floating Preview Card (5 Cols) -->
+          <div class="lg:col-span-5">
+            <div class="bg-white rounded-3xl border border-stone-200/90 p-6 sm:p-7 shadow-lg animate-float space-y-5">
+              <div class="flex items-center justify-between gap-2">
+                <span class="text-[11px] font-bold uppercase tracking-wider text-stone-400">Live Card Preview</span>
+                <button onclick="toggleHeroCardMode()" id="hero-flip-btn" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-sage-100 hover:bg-sage-200 text-sage-800 text-xs font-bold transition-colors">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                  </svg>
+                  <span id="hero-flip-label">Flip to Modern Reality</span>
+                </button>
+              </div>
+
+              <!-- Dynamic Hero Card Visual -->
+              <div id="hero-preview-box" class="rounded-2xl p-5 bg-blush-50 border border-blush-200 transition-all duration-300 space-y-4">
+                <div class="flex items-center justify-between">
+                  <span id="hero-badge" class="px-2.5 py-1 rounded-md bg-blush-100 text-blush-700 text-[11px] font-bold uppercase tracking-wider">
+                    Old Expectation
+                  </span>
+                  <span class="text-xs font-medium text-stone-400">01 / 05</span>
+                </div>
+
+                <!-- Editorial Card Photo -->
+                <div class="w-full h-44 rounded-xl bg-white/85 border border-stone-200/60 overflow-hidden relative" id="hero-svg-slot">
+                  <!-- Populated by JS -->
+                </div>
+
+                <div class="space-y-1.5">
+                  <h2 id="hero-card-title" class="font-serif text-xl font-semibold text-charcoal leading-snug">
+                    “Housework and caregiving are exclusively a woman’s duty.”
+                  </h2>
+                  <p id="hero-card-caption" class="text-xs sm:text-sm text-stone-600 leading-relaxed">
+                    Decades of cleaning ads framed domestic care around women alone—making shared responsibility invisible.
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between text-xs text-stone-500 pt-1">
+                <span>Tap the button above to rewrite the script</span>
+                <span class="font-semibold text-sage-600">#BeyondGenderLabels</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         3. WHY STEREOTYPES STICK (VISUAL BREAKDOWN)
+    ========================================================== -->
+    <section id="why-it-matters" class="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      <div class="max-w-3xl space-y-3">
+        <span class="text-xs font-bold uppercase tracking-widest text-sage-600 block">Why It Matters</span>
+        <h2 class="font-serif text-3xl sm:text-4xl font-semibold text-charcoal leading-tight">
+          How Outdated Gender Rules Quietly Stick Around
+        </h2>
+        <p class="text-sm sm:text-base text-stone-600 leading-relaxed">
+          Gender stereotypes are assumptions about how people should behave or what they should be good at simply because of their gender. Here is how they form—and why recognizing them matters.
+        </p>
+      </div>
+
+      <!-- 3-Pillar Editorial Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+        <!-- Pillar 1 -->
+        <article class="group bg-white rounded-3xl border border-stone-200/90 overflow-hidden shadow-sm flex flex-col justify-between hover:border-sage-300 transition-all">
+          <div>
+            <div class="relative h-48 overflow-hidden bg-paper">
+              <img src="images/photo-shared-home.jpg" alt="Partners cooking and sharing kitchen duties together" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+              <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-sm text-blush-700 text-[10px] font-bold uppercase tracking-wider shadow-sm">
+                Pillar 01 • Legacy Scripts
+              </span>
+            </div>
+            <div class="p-6 sm:p-7 space-y-3">
+              <h3 class="font-serif text-xl font-semibold text-charcoal">Traditional Media &amp; Ads</h3>
+              <p class="text-sm text-stone-600 leading-relaxed">
+                For decades, classic cleaning advertisements (like vintage <em>Bon Ami</em> sink-cleaner ads) consistently showed women scrubbing kitchens, while car and finance ads portrayed men as the sole decision-makers. Repetition turned narrow roles into “normal” expectations.
+              </p>
+            </div>
+          </div>
+          <div class="px-6 sm:px-7 pb-6 pt-4 border-t border-stone-100 text-xs font-medium text-stone-500">
+            Effect: Normalizes unequal domestic and career roles early in life.
+          </div>
+        </article>
+
+        <!-- Pillar 2 -->
+        <article class="group bg-white rounded-3xl border border-stone-200/90 overflow-hidden shadow-sm flex flex-col justify-between hover:border-sage-300 transition-all">
+          <div>
+            <div class="relative h-48 overflow-hidden bg-paper">
+              <img src="images/photo-creators.jpg" alt="Diverse content creators collaborating in a sunlit studio" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+              <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-sm text-sage-800 text-[10px] font-bold uppercase tracking-wider shadow-sm">
+                Pillar 02 • Echo Chambers
+              </span>
+            </div>
+            <div class="p-6 sm:p-7 space-y-3">
+              <h3 class="font-serif text-xl font-semibold text-charcoal">Social Media Algorithms</h3>
+              <p class="text-sm text-stone-600 leading-relaxed">
+                Anyone can post on social media, and engagement algorithms amplify viral tropes: beauty videos pressuring women for “flawless skin,” fitness reels demanding men always be muscular and hide emotions, or dating clips claiming men must always pay.
+              </p>
+            </div>
+          </div>
+          <div class="px-6 sm:px-7 pb-6 pt-4 border-t border-stone-100 text-xs font-medium text-stone-500">
+            Effect: Feeds repeat similar content, creating conformity bias.
+          </div>
+        </article>
+
+        <!-- Pillar 3 -->
+        <article class="group bg-white rounded-3xl border border-stone-200/90 overflow-hidden shadow-sm flex flex-col justify-between hover:border-sage-300 transition-all">
+          <div>
+            <div class="relative h-48 overflow-hidden bg-paper">
+              <img src="images/photo-vulnerability.jpg" alt="Young man journaling thoughtfully in morning sunlight" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+              <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-sm text-skyPastel-600 text-[10px] font-bold uppercase tracking-wider shadow-sm">
+                Pillar 03 • Everyday Pressure
+              </span>
+            </div>
+            <div class="p-6 sm:p-7 space-y-3">
+              <h3 class="font-serif text-xl font-semibold text-charcoal">Real-World Impact</h3>
+              <p class="text-sm text-stone-600 leading-relaxed">
+                Stereotypes limit career opportunities, discourage men from expressing vulnerability, pressure women over appearance, and cause online creators and streamers to be judged by gender rather than their talent or hard work.
+              </p>
+            </div>
+          </div>
+          <div class="px-6 sm:px-7 pb-6 pt-4 border-t border-stone-100 text-xs font-medium text-stone-500">
+            Solution: Use the exact same visual shareability to flip the narrative.
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         3B. EDITORIAL PHOTO STORIES & COMMUNITY GALLERY
+    ========================================================== -->
+    <section id="visual-stories" class="py-16 sm:py-24 bg-white border-t border-stone-200/80">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div class="max-w-2xl space-y-3">
+            <span class="text-xs font-bold uppercase tracking-widest text-sage-600 block">Photo Stories &amp; Community</span>
+            <h2 class="font-serif text-3xl sm:text-4xl font-semibold text-charcoal leading-tight">
+              Real Moments Beyond Gender Labels
+            </h2>
+            <p class="text-sm sm:text-base text-stone-600 leading-relaxed">
+              Visual representation changes what feels possible. Explore real-life moments challenging old media scripts—or sign in to upload your own photo story to the community wall.
+            </p>
+          </div>
+
+          <button onclick="openPhotoStoryModal()" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-sage-600 hover:bg-sage-800 text-white text-xs sm:text-sm font-semibold shadow-sm transition-all shrink-0">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+            <span>Add Your Photo Story</span>
+          </button>
+        </div>
+
+        <!-- Photo Stories Grid (Curated + User-Uploaded) -->
+        <div id="photo-stories-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Populated dynamically by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         4. FEATURED INTERACTIVE "OLD VS. MODERN" INFOGRAPHIC STUDIO
+    ========================================================== -->
+    <section id="infographic-studio" class="py-16 sm:py-24 bg-paper/75 border-y border-stone-200/80">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+
+        <!-- Section Header -->
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+          <div class="max-w-2xl space-y-3">
+            <span class="text-xs font-bold uppercase tracking-widest text-sage-600 block">Interactive Infographic Studio</span>
+            <h2 class="font-serif text-3xl sm:text-4xl font-semibold text-charcoal leading-tight">
+              Old Expectations vs. Modern Reality
+            </h2>
+            <p class="text-sm sm:text-base text-stone-600 leading-relaxed">
+              Visual infographics turn complex social habits into clear, side-by-side comparisons. Toggle views on any card, customize the pastel palette, or download a high-resolution PNG to share on your feed.
+            </p>
+          </div>
+
+          <!-- Category Filter Pills -->
+          <div id="category-filters" class="flex flex-wrap gap-2" role="tablist">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- Infographic Cards Grid -->
+        <div id="infographic-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7">
+          <!-- Populated dynamically by JS -->
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================
+         5. INTERACTIVE "CATCH THE STEREOTYPE" REALITY CHECK
+    ========================================================== -->
+    <section id="spot-the-bias" class="py-16 sm:py-24 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+      <div class="text-center max-w-2xl mx-auto space-y-3">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blush-50 border border-blush-200 text-xs font-bold uppercase tracking-widest text-blush-700">
+          Evidence-Backed Reality Check • Peer-Reviewed Studies
+        </span>
+        <h2 class="font-serif text-3xl sm:text-4xl font-semibold text-charcoal leading-tight">
+          Catch the Stereotype in Everyday Feeds
+        </h2>
+        <p class="text-sm sm:text-base text-stone-600 leading-relaxed">
+          We scroll past dozens of gendered messages every day without noticing. Read four real-world media moments below—each backed by peer-reviewed academic research to prevent biased opinions—and decide what pattern is at work.
+        </p>
+      </div>
+
+      <!-- Interactive Scenario Card Deck -->
+      <div class="bg-white rounded-3xl border border-stone-200/90 p-6 sm:p-10 shadow-sm space-y-6">
+        <!-- Scenario Progress Dots & Counter -->
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-stone-100 pb-4">
+          <div class="flex items-center gap-2" id="quiz-progress-dots">
+            <!-- Dots rendered by JS -->
+          </div>
+          <span id="quiz-counter-label" class="text-xs font-bold uppercase tracking-wider text-stone-400">
+            Scenario 1 of 4
+          </span>
+        </div>
+
+        <!-- Scenario Content Slot -->
+        <div id="quiz-stage" class="space-y-6">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         5B. REDDIT-STYLE COMMUNITY DISCUSSIONS (r/BeyondLabels)
+    ========================================================== -->
+    <section id="community-forum" class="py-16 sm:py-24 bg-paper/75 border-t border-stone-200/80">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        <!-- Forum Header -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div class="space-y-2.5 max-w-2xl">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sage-100 border border-sage-200 text-sage-800 text-xs font-bold">
+              <span class="w-2 h-2 rounded-full bg-sage-600"></span>
+              <span>r/BeyondLabels • Community Forum</span>
+            </div>
+            <h2 class="font-serif text-3xl sm:text-4xl font-semibold text-charcoal leading-tight">
+              Open Community Discussions
+            </h2>
+            <p class="text-sm sm:text-base text-stone-600 leading-relaxed">
+              Share your experiences, upvote thoughtful perspectives, cite helpful articles, and reply in threaded discussions—just like a focused, respectful Reddit community.
+            </p>
+          </div>
+
+          <button onclick="openForumPostModal()" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-charcoal hover:bg-sage-800 text-white text-xs sm:text-sm font-semibold shadow-sm transition-all shrink-0">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
+            </svg>
+            <span>New Discussion Post</span>
+          </button>
+        </div>
+
+        <!-- Filter & Sort Bar -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white rounded-2xl border border-stone-200 p-3">
+          <div id="forum-flair-filters" class="flex flex-wrap gap-1.5">
+            <!-- Populated by JS -->
+          </div>
+
+          <div class="flex items-center gap-2 shrink-0 self-end sm:self-center">
+            <label for="forum-sort-select" class="text-xs font-semibold text-stone-500">Sort:</label>
+            <select id="forum-sort-select" onchange="setForumSort(this.value)" class="rounded-xl border border-stone-200 bg-cream px-3 py-1.5 text-xs font-semibold text-charcoal focus:outline-none focus:ring-2 focus:ring-sage-500">
+              <option value="top">Top Voted</option>
+              <option value="newest">Newest</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Forum Thread Feed -->
+        <div id="forum-feed" class="space-y-4">
+          <!-- Populated dynamically by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         6. POSITIVE REPRESENTATION & PLEDGE WALL
+    ========================================================== -->
+    <section id="break-the-cycle" class="py-16 sm:py-24 bg-sage-800 text-white relative overflow-hidden">
+      <div class="pointer-events-none absolute -right-24 -bottom-24 w-96 h-96 rounded-full bg-sage-600/35 blur-3xl"></div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+
+          <!-- Left Editorial Narrative (6 Cols) -->
+          <div class="lg:col-span-6 space-y-6">
+            <span class="inline-block px-3 py-1 rounded-full bg-white/10 text-sage-100 text-xs font-bold uppercase tracking-wider">
+              Positive Representation
+            </span>
+            <h2 class="font-serif text-3xl sm:text-4xl font-semibold leading-tight">
+              Social Media Can Reinforce Labels—Or Help Break Them.
+            </h2>
+            <p class="text-sm sm:text-base text-sage-100/90 leading-relaxed">
+              When movies portray women as bold leaders and men as nurturing fathers, and when everyday creators challenge narrow expectations online, audiences realize that character and capability have nothing to do with gender.
+            </p>
+
+            <!-- Pledge Chip Selector -->
+            <div class="space-y-3 pt-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-sage-200 block">
+                Choose a Takeaway to Generate Your Personal Pledge Badge:
+              </span>
+              <div id="pledge-chips" class="flex flex-wrap gap-2">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Personal Mini-Quote Badge Generator (6 Cols) -->
+          <div class="lg:col-span-6">
+            <div class="bg-cream text-charcoal rounded-3xl p-6 sm:p-8 shadow-xl space-y-5">
+              <div class="flex items-center justify-between">
+                <span class="text-[11px] font-bold uppercase tracking-wider text-sage-600">Personal Takeaway Badge</span>
+                <span class="text-xs font-semibold text-stone-400">#BeyondGenderLabels</span>
+              </div>
+
+              <!-- Live Styled Quote Card -->
+              <div id="pledge-preview-card" class="rounded-2xl bg-sage-50 border border-sage-200 p-6 sm:p-7 space-y-4">
+                <div class="w-10 h-10 rounded-xl bg-sage-600 text-white flex items-center justify-center">
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c.5 4.5 3.5 7.5 8 8-4.5.5-7.5 3.5-8 8-.5-4.5-3.5-7.5-8-8 4.5-.5 7.5-3.5 8-8z"/>
+                  </svg>
+                </div>
+                <blockquote id="pledge-quote-text" class="font-serif text-2xl sm:text-[26px] font-semibold text-charcoal leading-snug">
+                  “I judge skills, character, and effort—never gender.”
+                </blockquote>
+                <p id="pledge-subtext" class="text-xs sm:text-sm text-stone-600">
+                  Abilities and personalities are shaped by who we are, not outdated stereotypes.
+                </p>
+                <div class="pt-3 border-t border-sage-200/80 flex items-center justify-between text-xs font-semibold text-sage-800">
+                  <span>BEYOND LABELS CAMPAIGN</span>
+                  <span>#BeyondGenderLabels</span>
+                </div>
+              </div>
+
+              <!-- Badge Actions -->
+              <div class="flex flex-wrap items-center gap-3">
+                <button onclick="downloadPledgePng()" class="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-charcoal hover:bg-sage-800 text-white text-xs sm:text-sm font-semibold transition-all">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                  </svg>
+                  <span>Download Badge PNG</span>
+                </button>
+                <button onclick="copyPledgeText()" class="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white hover:bg-paper text-charcoal border border-stone-300 text-xs sm:text-sm font-semibold transition-all">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                  </svg>
+                  <span>Copy Quote to Share</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =========================================================
+       7. CLEAN EDITORIAL FOOTER
+  ========================================================== -->
+  <footer class="bg-cream border-t border-stone-200/80 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+      <div class="space-y-2 max-w-xl">
+        <div class="flex items-center gap-2">
+          <span class="font-display font-extrabold text-base text-charcoal">BEYOND LABELS</span>
+          <span class="px-2.5 py-0.5 rounded-full bg-sage-100 text-sage-800 text-xs font-semibold">#BeyondGenderLabels</span>
+        </div>
+        <p class="text-xs sm:text-sm text-stone-600 leading-relaxed">
+          An educational awareness initiative using clear, shareable visual storytelling to challenge outdated gender stereotypes in traditional and social media—encouraging respect for every individual beyond gender labels.
+        </p>
+      </div>
+
+      <a href="#top" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white hover:bg-paper border border-stone-200 text-xs font-semibold text-charcoal transition-colors">
+        <span>Back to top</span>
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/>
+        </svg>
+      </a>
+    </div>
+  </footer>
+
+  <!-- =========================================================
+       CUSTOMIZE & SHARE MODAL (4:5 POST & 9:16 STORY PREVIEW)
+  ========================================================== -->
+  <div id="share-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-charcoal/60 backdrop-blur-xs p-4 overflow-y-auto" role="dialog" aria-modal="true">
+    <div class="bg-cream rounded-3xl max-w-4xl w-full border border-stone-200 shadow-2xl overflow-hidden my-auto animate-fade-up">
+      <!-- Modal Top Bar -->
+      <div class="px-6 py-4 bg-white border-b border-stone-200 flex items-center justify-between">
+        <div>
+          <span class="text-[11px] font-bold uppercase tracking-wider text-sage-600 block">Customize &amp; Export</span>
+          <h3 id="modal-card-heading" class="font-serif text-lg sm:text-xl font-semibold text-charcoal">Share Infographic Card</h3>
+        </div>
+        <button onclick="closeShareModal()" class="p-2 rounded-full text-stone-500 hover:bg-stone-100 hover:text-charcoal transition-colors" aria-label="Close modal">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-6 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <!-- Live Aspect Ratio Preview (6 Cols) -->
+        <div class="lg:col-span-6 flex flex-col items-center justify-center bg-paper/90 rounded-2xl p-5 border border-stone-200/80">
+          <div id="modal-live-preview" class="w-full max-w-[300px] rounded-2xl shadow-md border border-stone-200/90 p-5 flex flex-col justify-between transition-all duration-300 bg-[#F2F7F4]" style="aspect-ratio: 4 / 5;">
+            <!-- Populated dynamically by JS -->
+          </div>
+          <span id="modal-ratio-note" class="text-[11px] text-stone-500 mt-3 font-medium">
+            Instagram / Feed Post Format (1080 × 1350 px • 4:5)
+          </span>
+        </div>
+
+        <!-- Customization Controls (6 Cols) -->
+        <div class="lg:col-span-6 space-y-5">
+          <!-- Format Switcher -->
+          <div class="space-y-2">
+            <label class="text-xs font-bold uppercase tracking-wider text-stone-500 block">1. Choose Social Format</label>
+            <div class="grid grid-cols-2 gap-2.5">
+              <button onclick="setModalFormat('4:5')" id="fmt-btn-45" class="py-2.5 px-3 rounded-xl border text-xs font-bold transition-all bg-charcoal text-white border-charcoal">
+                Feed Post (4:5)
+              </button>
+              <button onclick="setModalFormat('9:16')" id="fmt-btn-916" class="py-2.5 px-3 rounded-xl border text-xs font-bold transition-all bg-white text-stone-700 border-stone-300 hover:bg-stone-50">
+                Story / Reel Cover (9:16)
+              </button>
+            </div>
+          </div>
+
+          <!-- Palette Switcher -->
+          <div class="space-y-2">
+            <label class="text-xs font-bold uppercase tracking-wider text-stone-500 block">2. Choose Pastel Palette</label>
+            <div class="grid grid-cols-3 gap-2.5">
+              <button onclick="setModalPalette('sage')" id="pal-btn-sage" class="flex items-center gap-2 p-2.5 rounded-xl border-2 border-sage-600 bg-white text-xs font-semibold text-charcoal">
+                <span class="w-4 h-4 rounded-full bg-[#DCECE2] border border-sage-500 shrink-0"></span>
+                <span>Sage Meadow</span>
+              </button>
+              <button onclick="setModalPalette('blush')" id="pal-btn-blush" class="flex items-center gap-2 p-2.5 rounded-xl border border-stone-300 bg-white text-xs font-semibold text-charcoal">
+                <span class="w-4 h-4 rounded-full bg-[#F9E6E3] border border-blush-500 shrink-0"></span>
+                <span>Warm Blush</span>
+              </button>
+              <button onclick="setModalPalette('sky')" id="pal-btn-sky" class="flex items-center gap-2 p-2.5 rounded-xl border border-stone-300 bg-white text-xs font-semibold text-charcoal">
+                <span class="w-4 h-4 rounded-full bg-[#E1EEF5] border border-skyPastel-600 shrink-0"></span>
+                <span>Soft Sky</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Ready-to-Post Caption -->
+          <div class="space-y-2">
+            <div class="flex items-center justify-between">
+              <label class="text-xs font-bold uppercase tracking-wider text-stone-500">3. Ready-to-Post Caption</label>
+              <button onclick="copyModalCaption()" class="text-xs font-bold text-sage-600 hover:text-sage-800 underline">
+                Copy Caption
+              </button>
+            </div>
+            <textarea id="modal-caption-box" rows="3" class="w-full rounded-xl border border-stone-300 bg-white p-3 text-xs text-stone-700 leading-relaxed focus:outline-none focus:ring-2 focus:ring-sage-500"></textarea>
+          </div>
+
+          <!-- Export Button -->
+          <div class="pt-2 flex flex-col sm:flex-row gap-3">
+            <button onclick="downloadModalCustomPng()" class="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-sage-600 hover:bg-sage-800 text-white text-sm font-semibold shadow-sm transition-all">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+              </svg>
+              <span>Download High-Res PNG</span>
+            </button>
+            <button onclick="copyModalCaption()" class="inline-flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl bg-white hover:bg-stone-50 text-charcoal border border-stone-300 text-sm font-semibold transition-all">
+              <span>Copy Text</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       AUTH MODAL (LOG IN / CREATE ACCOUNT)
+  ========================================================== -->
+  <div id="auth-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-charcoal/60 backdrop-blur-sm p-4 overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="auth-modal-title" onclick="if(event.target === this) closeAuthModal()">
+    <div class="bg-cream rounded-3xl max-w-md w-full border border-stone-200 shadow-2xl overflow-hidden my-auto animate-fade-up">
+      <div class="px-6 py-4 bg-white border-b border-stone-200 flex items-center justify-between">
+        <div>
+          <span class="text-[11px] font-bold uppercase tracking-wider text-sage-600 block">Beyond Labels Member</span>
+          <h3 id="auth-modal-title" class="font-serif text-xl font-semibold text-charcoal">Welcome Back</h3>
+        </div>
+        <button onclick="closeAuthModal()" class="p-2 rounded-full text-stone-500 hover:bg-stone-100 hover:text-charcoal transition-colors" aria-label="Close authentication modal">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="p-6 space-y-5">
+        <!-- Tabs -->
+        <div class="grid grid-cols-2 gap-1.5 p-1 rounded-2xl bg-paper border border-stone-200">
+          <button type="button" id="auth-tab-login" onclick="switchAuthTab('login')" class="py-2 rounded-xl text-xs font-bold transition-all bg-charcoal text-white shadow-sm">
+            Log In
+          </button>
+          <button type="button" id="auth-tab-signup" onclick="switchAuthTab('signup')" class="py-2 rounded-xl text-xs font-bold transition-all text-stone-600 hover:text-charcoal">
+            Create Account
+          </button>
+        </div>
+
+        <!-- Error Banner -->
+        <div id="auth-error" class="hidden rounded-xl bg-blush-50 border border-blush-200 px-3.5 py-2.5 text-xs font-medium text-blush-700"></div>
+
+        <!-- Form -->
+        <form id="auth-form" onsubmit="handleAuthSubmit(event)" class="space-y-4">
+          <!-- Signup-only fields -->
+          <div id="auth-signup-fields" class="hidden space-y-4">
+            <div class="flex items-center gap-4">
+              <div id="auth-avatar-preview" class="w-14 h-14 rounded-full bg-sage-100 border border-sage-200 flex items-center justify-center text-sage-800 font-display font-bold text-lg overflow-hidden shrink-0">
+                <span>BL</span>
+              </div>
+              <div class="flex-1 space-y-1">
+                <label for="auth-avatar-input" class="text-xs font-bold text-charcoal block">Profile Photo (Optional)</label>
+                <input id="auth-avatar-input" type="file" accept="image/*" onchange="handleAuthAvatarUpload(event)" class="block w-full text-xs text-stone-500 file:mr-2.5 file:py-1.5 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-sage-100 file:text-sage-800 hover:file:bg-sage-200 cursor-pointer" />
+              </div>
+            </div>
+
+            <div class="space-y-1.5">
+              <label for="auth-name" class="text-xs font-bold uppercase tracking-wider text-stone-500 block">Full Name</label>
+              <input id="auth-name" type="text" placeholder="e.g. Maya Lin" class="w-full rounded-xl border border-stone-300 bg-white px-3.5 py-2.5 text-sm text-charcoal focus:outline-none focus:ring-2 focus:ring-sage-500" />
+            </div>
+          </div>
+
+          <div class="space-y-1.5">
+            <label for="auth-email" class="text-xs font-bold uppercase tracking-wider text-stone-500 block">Email Address</label>
+            <input id="auth-email" type="email" required placeholder="you@example.com" class="w-full rounded-xl border border-stone-300 bg-white px-3.5 py-2.5 text-sm text-charcoal focus:outline-none focus:ring-2 focus:ring-sage-500" />
+          </div>
+
+          <div class="space-y-1.5">
+            <label for="auth-password" class="text-xs font-bold uppercase tracking-wider text-stone-500 block">Password</label>
+            <div class="relative">
+              <input id="auth-password" type="password" required minlength="4" placeholder="At least 4 characters" class="w-full rounded-xl border border-stone-300 bg-white px-3.5 py-2.5 pr-16 text-sm text-charcoal focus:outline-none focus:ring-2 focus:ring-sage-500" />
+              <button type="button" onclick="togglePasswordVisibility()" id="auth-pwd-toggle" class="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-semibold text-stone-500 hover:text-charcoal">
+                Show
+              </button>
+            </div>
+          </div>
+
+          <button type="submit" id="auth-submit-btn" class="w-full py-3 rounded-xl bg-sage-600 hover:bg-sage-800 text-white text-sm font-semibold shadow-sm transition-all">
+            Log In
+          </button>
+        </form>
+
+        <!-- Quick 1-Click Demo Login -->
+        <div class="pt-3 border-t border-stone-200/80 space-y-2.5 text-center">
+          <p class="text-[11px] text-stone-500">
+            Accounts are saved locally in your browser. Want to test right away?
+          </p>
+          <button type="button" onclick="loginDemoAccount()" class="w-full py-2.5 rounded-xl bg-white hover:bg-paper border border-stone-300 text-xs font-semibold text-charcoal transition-colors">
+            Try Demo Account (Maya Lin)
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       MEMBER PROFILE & SAVED COLLECTION MODAL
+  ========================================================== -->
+  <div id="profile-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-charcoal/60 backdrop-blur-sm p-4 overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="profile-modal-title" onclick="if(event.target === this) closeProfileModal()">
+    <div class="bg-cream rounded-3xl max-w-2xl w-full border border-stone-200 shadow-2xl overflow-hidden my-auto animate-fade-up">
+      <div class="px-6 py-4 bg-white border-b border-stone-200 flex items-center justify-between">
+        <div>
+          <span class="text-[11px] font-bold uppercase tracking-wider text-sage-600 block">Member Space</span>
+          <h3 id="profile-modal-title" class="font-serif text-xl font-semibold text-charcoal">Your Profile &amp; Saved Cards</h3>
+        </div>
+        <button onclick="closeProfileModal()" class="p-2 rounded-full text-stone-500 hover:bg-stone-100 hover:text-charcoal transition-colors" aria-label="Close profile modal">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <div id="profile-modal-body" class="p-6 space-y-6">
+        <!-- Populated dynamically by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       ADD PHOTO STORY MODAL
+  ========================================================== -->
+  <div id="photo-story-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-charcoal/60 backdrop-blur-sm p-4 overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="photo-story-modal-title" onclick="if(event.target === this) closePhotoStoryModal()">
+    <div class="bg-cream rounded-3xl max-w-lg w-full border border-stone-200 shadow-2xl overflow-hidden my-auto animate-fade-up">
+      <div class="px-6 py-4 bg-white border-b border-stone-200 flex items-center justify-between">
+        <div>
+          <span class="text-[11px] font-bold uppercase tracking-wider text-sage-600 block">Community Gallery</span>
+          <h3 id="photo-story-modal-title" class="font-serif text-xl font-semibold text-charcoal">Share Your Photo Story</h3>
+        </div>
+        <button onclick="closePhotoStoryModal()" class="p-2 rounded-full text-stone-500 hover:bg-stone-100 hover:text-charcoal transition-colors" aria-label="Close photo story modal">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <form onsubmit="handlePhotoStorySubmit(event)" class="p-6 space-y-4">
+        <div class="space-y-2">
+          <label class="text-xs font-bold uppercase tracking-wider text-stone-500 block">Upload Photo</label>
+          <div id="story-photo-preview-box" class="h-44 rounded-2xl border-2 border-dashed border-stone-300 bg-white flex flex-col items-center justify-center text-stone-400 overflow-hidden relative">
+            <span class="text-xs font-medium">Choose a photo from your device</span>
+          </div>
+          <input id="story-photo-input" type="file" accept="image/*" required onchange="handleStoryPhotoUpload(event)" class="block w-full text-xs text-stone-500 file:mr-3 file:py-2 file:px-3.5 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-sage-100 file:text-sage-800 hover:file:bg-sage-200 cursor-pointer" />
+        </div>
+
+        <div class="space-y-1.5">
+          <label for="story-title-input" class="text-xs font-bold uppercase tracking-wider text-stone-500 block">Story Headline</label>
+          <input id="story-title-input" type="text" required maxlength="70" placeholder="e.g. Sharing dinner prep after work" class="w-full rounded-xl border border-stone-300 bg-white px-3.5 py-2.5 text-sm text-charcoal focus:outline-none focus:ring-2 focus:ring-sage-500" />
+        </div>
+
+        <div class="space-y-1.5">
+          <label for="story-caption-input" class="text-xs font-bold uppercase tracking-wider text-stone-500 block">Short Reflection</label>
+          <textarea id="story-caption-input" rows="3" required maxlength="180" placeholder="How does this moment challenge outdated expectations?" class="w-full rounded-xl border border-stone-300 bg-white p-3 text-sm text-charcoal focus:outline-none focus:ring-2 focus:ring-sage-500"></textarea>
+        </div>
+
+        <button type="submit" class="w-full py-3 rounded-xl bg-sage-600 hover:bg-sage-800 text-white text-sm font-semibold shadow-sm transition-all">
+          Publish to Community Wall
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       NEW FORUM DISCUSSION POST MODAL (REDDIT-STYLE)
+  ========================================================== -->
+  <div id="forum-post-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-charcoal/60 backdrop-blur-sm p-4 overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="forum-post-modal-title" onclick="if(event.target === this) closeForumPostModal()">
+    <div class="bg-cream rounded-3xl max-w-lg w-full border border-stone-200 shadow-2xl overflow-hidden my-auto animate-fade-up">
+      <div class="px-6 py-4 bg-white border-b border-stone-200 flex items-center justify-between">
+        <div>
+          <span class="text-[11px] font-bold uppercase tracking-wider text-sage-600 block">r/BeyondLabels</span>
+          <h3 id="forum-post-modal-title" class="font-serif text-xl font-semibold text-charcoal">Start a Discussion</h3>
+        </div>
+        <button onclick="closeForumPostModal()" class="p-2 rounded-full text-stone-500 hover:bg-stone-100 hover:text-charcoal transition-colors" aria-label="Close discussion modal">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <form onsubmit="handleForumPostSubmit(event)" class="p-6 space-y-4">
+        <div class="space-y-1.5">
+          <label for="forum-post-flair" class="text-xs font-bold uppercase tracking-wider text-stone-500 block">Topic Flair</label>
+          <select id="forum-post-flair" class="w-full rounded-xl border border-stone-300 bg-white px-3.5 py-2.5 text-sm text-charcoal focus:outline-none focus:ring-2 focus:ring-sage-500">
+            <option value="Media & Ads">Media &amp; Ads</option>
+            <option value="Social Algorithms">Social Algorithms</option>
+            <option value="Personal Story">Personal Story</option>
+            <option value="Research & Articles">Research &amp; Articles</option>
+          </select>
+        </div>
+
+        <div class="space-y-1.5">
+          <label for="forum-post-title" class="text-xs font-bold uppercase tracking-wider text-stone-500 block">Post Title</label>
+          <input id="forum-post-title" type="text" required maxlength="120" placeholder="What media trope or stereotype do you want to discuss?" class="w-full rounded-xl border border-stone-300 bg-white px-3.5 py-2.5 text-sm text-charcoal focus:outline-none focus:ring-2 focus:ring-sage-500" />
+        </div>
+
+        <div class="space-y-1.5">
+          <label for="forum-post-body" class="text-xs font-bold uppercase tracking-wider text-stone-500 block">Your Thoughts</label>
+          <textarea id="forum-post-body" rows="4" required maxlength="600" placeholder="Share your observation, experience, or question..." class="w-full rounded-xl border border-stone-300 bg-white p-3 text-sm text-charcoal focus:outline-none focus:ring-2 focus:ring-sage-500"></textarea>
+        </div>
+
+        <div class="space-y-1.5">
+          <label for="forum-post-source" class="text-xs font-bold uppercase tracking-wider text-stone-500 block">Supporting Source / Citation (Optional)</label>
+          <input id="forum-post-source" type="text" maxlength="140" placeholder="e.g. Author (Year) or article link" class="w-full rounded-xl border border-stone-300 bg-white px-3.5 py-2.5 text-sm text-charcoal focus:outline-none focus:ring-2 focus:ring-sage-500" />
+        </div>
+
+        <button type="submit" class="w-full py-3 rounded-xl bg-charcoal hover:bg-sage-800 text-white text-sm font-semibold shadow-sm transition-all">
+          Post to r/BeyondLabels
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- NON-BLOCKING TOAST MESSAGE -->
+  <div id="toast" class="fixed bottom-5 right-5 z-50 hidden items-center gap-2.5 bg-charcoal text-white px-4 py-3 rounded-2xl shadow-xl text-xs sm:text-sm animate-fade-up">
+    <span class="w-2 h-2 rounded-full bg-sage-500"></span>
+    <span id="toast-message">Downloaded infographic PNG!</span>
+  </div>
+
+  <!-- HIDDEN HIGH-RES CANVAS FOR PNG GENERATION -->
+  <canvas id="export-canvas" class="hidden"></canvas>
+
+  <script>
+    // =========================================================
+    // 1. DATA: INFOGRAPHIC THEMES, QUIZ SCENARIOS & PLEDGES
+    // =========================================================
+    const INFOGRAPHICS = [
+      {
+        id: 'home-caregiving',
+        category: 'Home & Caregiving',
+        number: '01',
+        title: 'Home & Caregiving',
+        photo: 'images/photo-shared-home.jpg',
+        photoAlt: 'Partners cooking and sharing kitchen duties together',
+        oldHeadline: 'Housework and childcare belong solely to women.',
+        oldDetail: 'Classic cleaning ads (like vintage Bon Ami commercials) framed spotless kitchens as a woman’s duty.',
+        modernHeadline: 'A shared home is everyone’s responsibility, regardless of gender.',
+        modernDetail: 'Cooking, cleaning, and raising children are life skills—not gender assignments.',
+        caption: 'Clean dishes and caring homes don’t have a gender. Let’s leave vintage ad tropes in the past and normalize shared responsibilities at home. #BeyondGenderLabels #SharedCare',
+        svgMarkup: `
+          <svg viewBox="0 0 240 110" class="w-full h-28" fill="none">
+            <!-- Left Side: Old -->
+            <rect x="8" y="10" width="102" height="90" rx="14" fill="#FDF5F4" stroke="#F2CBC5" stroke-width="1.5"/>
+            <circle cx="59" cy="40" r="12" fill="#D4746A" opacity="0.25"/>
+            <path d="M44 74c0-9 7-15 15-15s15 6 15 15" stroke="#9E473E" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M76 46h14M83 39v14" stroke="#D4746A" stroke-width="2" stroke-linecap="round"/>
+            <text x="59" y="90" text-anchor="middle" font-size="9" font-weight="700" fill="#9E473E">1 PERSON'S DUTY</text>
+            <!-- Divider Arrow -->
+            <path d="M114 55h12m-4-4l4 4-4 4" stroke="#5F8D70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- Right Side: Modern -->
+            <rect x="130" y="10" width="102" height="90" rx="14" fill="#F2F7F4" stroke="#C5DBC9" stroke-width="1.5"/>
+            <circle cx="166" cy="40" r="10" fill="#5F8D70" opacity="0.3"/>
+            <circle cx="196" cy="40" r="10" fill="#497358" opacity="0.3"/>
+            <path d="M154 73c0-7 5-12 12-12s12 5 12 12M184 73c0-7 5-12 12-12s12 5 12 12" stroke="#274232" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M176 34l5-5 5 5" stroke="#5F8D70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <text x="181" y="90" text-anchor="middle" font-size="9" font-weight="700" fill="#274232">SHARED PARTNERSHIP</text>
+          </svg>
+        `
+      },
+      {
+        id: 'leadership-careers',
+        category: 'Leadership & Careers',
+        number: '02',
+        title: 'Leadership & Careers',
+        photo: 'images/card-leadership.jpg',
+        photoAlt: 'Confident woman leading a collaborative team meeting',
+        oldHeadline: 'Men lead and decide; women take supporting roles.',
+        oldDetail: 'Financial ads and movies often cast men as executives while women are judged by appearance.',
+        modernHeadline: 'Skill, vision, and empathy define leadership—not gender.',
+        modernDetail: 'Anyone can lead a boardroom, build technology, or mentor a team with excellence.',
+        caption: 'Leadership isn’t wired into chromosomes—it’s built through vision, empathy, and hard work. Let’s judge talent, not gender. #BeyondGenderLabels #EqualOpportunity',
+        svgMarkup: `
+          <svg viewBox="0 0 240 110" class="w-full h-28" fill="none">
+            <rect x="8" y="10" width="102" height="90" rx="14" fill="#FDF5F4" stroke="#F2CBC5" stroke-width="1.5"/>
+            <rect x="34" y="28" width="50" height="34" rx="6" stroke="#9E473E" stroke-width="2"/>
+            <path d="M44 52l10-10 8 6 12-12" stroke="#D4746A" stroke-width="2.2" stroke-linecap="round"/>
+            <text x="59" y="90" text-anchor="middle" font-size="9" font-weight="700" fill="#9E473E">NARROW GATEKEEPING</text>
+            <path d="M114 55h12m-4-4l4 4-4 4" stroke="#5F8D70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="130" y="10" width="102" height="90" rx="14" fill="#F2F7F4" stroke="#C5DBC9" stroke-width="1.5"/>
+            <polygon points="181,24 186,37 200,37 189,45 193,58 181,50 169,58 173,45 162,37 176,37" fill="#5F8D70" opacity="0.28" stroke="#274232" stroke-width="1.8"/>
+            <text x="181" y="90" text-anchor="middle" font-size="9" font-weight="700" fill="#274232">MERIT &amp; VISION FIRST</text>
+          </svg>
+        `
+      },
+      {
+        id: 'strength-emotion',
+        category: 'Strength & Emotion',
+        number: '03',
+        title: 'Strength & Emotion',
+        photo: 'images/photo-vulnerability.jpg',
+        photoAlt: 'Young man journaling thoughtfully in soft morning light',
+        oldHeadline: 'Men must hide feelings; women must be delicate.',
+        oldDetail: 'Social pressure tells boys to “toughen up” and dismisses women’s assertiveness as emotional.',
+        modernHeadline: 'Emotional honesty and resilience are human strengths.',
+        modernDetail: 'Vulnerability takes courage, and strength comes in calm, caring, and expressive forms.',
+        caption: 'Hiding emotions isn’t strength—honesty is. Men can be vulnerable and caring, and women can be bold and assertive. #BeyondGenderLabels #EmotionalHealth',
+        svgMarkup: `
+          <svg viewBox="0 0 240 110" class="w-full h-28" fill="none">
+            <rect x="8" y="10" width="102" height="90" rx="14" fill="#FDF5F4" stroke="#F2CBC5" stroke-width="1.5"/>
+            <path d="M59 27l22 10v16c0 13-9 22-22 26-13-4-22-13-22-26V37l22-10z" stroke="#9E473E" stroke-width="2" fill="#D4746A" fill-opacity="0.14"/>
+            <path d="M51 52h16" stroke="#9E473E" stroke-width="2.2" stroke-linecap="round"/>
+            <text x="59" y="90" text-anchor="middle" font-size="9" font-weight="700" fill="#9E473E">BOTTLED FEELINGS</text>
+            <path d="M114 55h12m-4-4l4 4-4 4" stroke="#5F8D70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="130" y="10" width="102" height="90" rx="14" fill="#F2F7F4" stroke="#C5DBC9" stroke-width="1.5"/>
+            <path d="M181 68s-20-12-20-26a11 11 0 0120-6 11 11 0 0120 6c0 14-20 26-20 26z" fill="#5F8D70" fill-opacity="0.25" stroke="#274232" stroke-width="2"/>
+            <text x="181" y="90" text-anchor="middle" font-size="9" font-weight="700" fill="#274232">OPEN &amp; RESILIENT</text>
+          </svg>
+        `
+      },
+      {
+        id: 'body-beauty',
+        category: 'Body & Beauty',
+        number: '04',
+        title: 'Body & Beauty Standards',
+        photo: 'images/card-body-beauty.jpg',
+        photoAlt: 'Diverse young adults smiling naturally in warm daylight',
+        oldHeadline: 'Women must chase flawless skin; men must fit one muscular ideal.',
+        oldDetail: 'Filtered beauty reels and hyper-masculine fitness feeds turn natural bodies into insecurities.',
+        modernHeadline: 'Health, confidence, and self-expression look different on everyone.',
+        modernDetail: 'Real bodies have texture, variety, and personality beyond algorithm trends.',
+        caption: 'Your worth isn’t measured by a beauty filter or a single body template. Real confidence starts when we drop impossible standards. #BeyondGenderLabels #BodyNeutrality',
+        svgMarkup: `
+          <svg viewBox="0 0 240 110" class="w-full h-28" fill="none">
+            <rect x="8" y="10" width="102" height="90" rx="14" fill="#FDF5F4" stroke="#F2CBC5" stroke-width="1.5"/>
+            <rect x="39" y="25" width="40" height="46" rx="8" stroke="#9E473E" stroke-width="2" stroke-dasharray="4 3"/>
+            <circle cx="59" cy="48" r="10" stroke="#D4746A" stroke-width="2"/>
+            <text x="59" y="90" text-anchor="middle" font-size="9" font-weight="700" fill="#9E473E">ONE RIGID FILTER</text>
+            <path d="M114 55h12m-4-4l4 4-4 4" stroke="#5F8D70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="130" y="10" width="102" height="90" rx="14" fill="#F2F7F4" stroke="#C5DBC9" stroke-width="1.5"/>
+            <circle cx="163" cy="48" r="10" fill="#5F8D70" opacity="0.3" stroke="#274232" stroke-width="1.8"/>
+            <circle cx="181" cy="43" r="12" fill="#497358" opacity="0.25" stroke="#274232" stroke-width="1.8"/>
+            <circle cx="199" cy="49" r="9" fill="#5F8D70" opacity="0.3" stroke="#274232" stroke-width="1.8"/>
+            <text x="181" y="90" text-anchor="middle" font-size="9" font-weight="700" fill="#274232">DIVERSE &amp; AUTHENTIC</text>
+          </svg>
+        `
+      },
+      {
+        id: 'creators-online',
+        category: 'Creators & Culture',
+        number: '05',
+        title: 'Creators & Online Culture',
+        photo: 'images/photo-creators.jpg',
+        photoAlt: 'Diverse creators collaborating with a camera and laptop',
+        oldHeadline: 'Judging streamers, gamers, and creators by gender norms.',
+        oldDetail: 'Female creators face appearance policing while male creators are mocked for non-traditional hobbies.',
+        modernHeadline: 'Creativity and talent deserve respect without double standards.',
+        modernDetail: 'Whether gaming, designing, cooking, or coding—skill speaks louder than labels.',
+        caption: 'In gaming, streaming, and content creation, talent has no gender. Let’s leave double standards out of the comment section. #BeyondGenderLabels #CreatorRespect',
+        svgMarkup: `
+          <svg viewBox="0 0 240 110" class="w-full h-28" fill="none">
+            <rect x="8" y="10" width="102" height="90" rx="14" fill="#FDF5F4" stroke="#F2CBC5" stroke-width="1.5"/>
+            <rect x="33" y="29" width="52" height="36" rx="8" stroke="#9E473E" stroke-width="2"/>
+            <path d="M51 41l16 12M67 41L51 53" stroke="#D4746A" stroke-width="2.2" stroke-linecap="round"/>
+            <text x="59" y="90" text-anchor="middle" font-size="9" font-weight="700" fill="#9E473E">DOUBLE STANDARDS</text>
+            <path d="M114 55h12m-4-4l4 4-4 4" stroke="#5F8D70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="130" y="10" width="102" height="90" rx="14" fill="#F2F7F4" stroke="#C5DBC9" stroke-width="1.5"/>
+            <rect x="155" y="29" width="52" height="36" rx="8" fill="#5F8D70" fill-opacity="0.2" stroke="#274232" stroke-width="2"/>
+            <polygon points="176,40 190,47 176,54" fill="#274232"/>
+            <text x="181" y="90" text-anchor="middle" font-size="9" font-weight="700" fill="#274232">RESPECT THE CRAFT</text>
+          </svg>
+        `
+      }
+    ];
+
+    const QUIZ_SCENARIOS = [
+      {
+        platform: 'Household Product Ad • TV & Social Video',
+        prompt: 'A dish-soap commercial shows a tired husband sitting on the sofa while his wife cheerfully cleans the entire kitchen alone, with the tagline: “Every woman’s secret to a happy home.”',
+        correctAnswer: 'STEREOTYPE',
+        stereotypePercent: 94,
+        explanation: 'Spot on. Just like classic cleaning ads (such as vintage Bon Ami campaigns), framing housework as exclusively a woman’s responsibility overlooks that domestic care can be shared by anyone.',
+        research: {
+          citation: 'Eisend, M. (2010) • Journal of the Academy of Marketing Science, 38(4), 418–440',
+          title: 'A meta-analysis of gender roles in advertising',
+          finding: 'Across 64 primary studies, advertising consistently over-represents women in domestic home settings and dependent roles, reinforcing traditional household stereotypes.',
+          doiUrl: 'https://doi.org/10.1007/s11747-009-0181-x'
+        }
+      },
+      {
+        platform: 'Short-Form Relationship Reel • Viral Feed',
+        prompt: 'A viral dating video claims: “If a man doesn’t pay for every single date or hides when he’s stressed, he isn’t a real man—and women should always stay dependent.”',
+        correctAnswer: 'STEREOTYPE',
+        stereotypePercent: 91,
+        explanation: 'Exactly. Relationship tropes like this box both men and women into rigid financial and emotional roles instead of letting couples communicate openly as equals.',
+        research: {
+          citation: 'Wong, Y. J., Ho, M.-H. R., Wang, S.-Y., & Miller, I. S. K. (2017) • Journal of Counseling Psychology, 64(1), 80–93',
+          title: 'Meta-analyses of the relationship between conformity to masculine norms and mental health-related outcomes',
+          finding: 'Synthesizing 78 samples (19,453 participants), rigid conformity to masculine norms like emotional suppression and self-reliance is significantly linked to poorer mental health and lower help-seeking.',
+          doiUrl: 'https://doi.org/10.1037/cou0000176'
+        }
+      },
+      {
+        platform: 'Gaming Livestream • Comment Section',
+        prompt: 'A skilled female esports streamer wins a tournament match, yet half the live chat comments focus on her appearance rather than her strategy and gameplay.',
+        correctAnswer: 'STEREOTYPE',
+        stereotypePercent: 96,
+        explanation: 'Yes. Content creators and streamers are frequently judged by gender expectations—women face appearance scrutiny while men face pressure to fit narrow “tough” personas.',
+        research: {
+          citation: 'Fox, J., & Tang, W. Y. (2017) • New Media & Society, 19(8), 1290–1307',
+          title: 'Women’s experiences with general and sexual harassment in online video games: Rumination, organizational responsiveness, withdrawal, and coping strategies',
+          finding: 'Female players and creators face disproportionate gender-based scrutiny and harassment online rather than evaluation on skill, leading to rumination and withdrawal from gaming spaces.',
+          doiUrl: 'https://doi.org/10.1177/1461444816635778'
+        }
+      },
+      {
+        platform: 'Family & Lifestyle Series • Modern Media',
+        prompt: 'A mainstream drama features a father taking paternity leave to care for his newborn while his partner leads an engineering launch—portraying both roles as natural and fulfilling.',
+        correctAnswer: 'POSITIVE',
+        stereotypePercent: 93,
+        explanation: 'Correct! Positive representation shows audiences that caring fathers and women in leadership are completely natural—proving abilities aren’t determined by gender.',
+        research: {
+          citation: 'Dasgupta, N., & Asgari, S. (2004) • Journal of Experimental Social Psychology, 40(5), 642–658',
+          title: 'Seeing is believing: Exposure to counterstereotypic women leaders and its effect on the malleability of automatic gender stereotyping',
+          finding: 'Repeated exposure to counter-stereotypical role models (such as women in leadership and non-traditional roles) measurably reduces automatic, implicit gender stereotyping.',
+          doiUrl: 'https://doi.org/10.1016/j.jesp.2004.02.003'
+        }
+      }
+    ];
+
+    const PLEDGES = [
+      {
+        chip: 'I judge skills, not gender',
+        quote: '“I judge skills, character, and effort—never gender.”',
+        subtext: 'Abilities and personalities are shaped by who we are, not outdated stereotypes.'
+      },
+      {
+        chip: 'Caregiving has no gender',
+        quote: '“Cooking, cleaning, and caregiving are human life skills—not gender duties.”',
+        subtext: 'A healthy home thrives on shared partnership, not vintage ad scripts.'
+      },
+      {
+        chip: 'Men can be vulnerable too',
+        quote: '“Real strength includes empathy, honesty, and expressing emotion.”',
+        subtext: 'No one should have to hide their feelings to fit a stereotype.'
+      },
+      {
+        chip: 'Respect creators equally',
+        quote: '“I respect creators for their craft and creativity—without double standards.”',
+        subtext: 'Online communities grow better when talent matters more than labels.'
+      }
+    ];
+
+    const PALETTES = {
+      sage: {
+        name: 'Sage Meadow',
+        bgHex: '#F2F7F4',
+        cardBgHex: '#FFFFFF',
+        accentHex: '#497358',
+        oldBgHex: '#FDF5F4',
+        oldTextHex: '#9E473E',
+        modernBgHex: '#E2EDE6',
+        modernTextHex: '#274232',
+        inkHex: '#1C2421'
+      },
+      blush: {
+        name: 'Warm Blush',
+        bgHex: '#FDF5F4',
+        cardBgHex: '#FFFFFF',
+        accentHex: '#9E473E',
+        oldBgHex: '#F4F0E8',
+        oldTextHex: '#785A52',
+        modernBgHex: '#F9E6E3',
+        modernTextHex: '#7A2E26',
+        inkHex: '#1C2421'
+      },
+      sky: {
+        name: 'Soft Sky',
+        bgHex: '#F2F7FA',
+        cardBgHex: '#FFFFFF',
+        accentHex: '#3D7694',
+        oldBgHex: '#FDF5F4',
+        oldTextHex: '#9E473E',
+        modernBgHex: '#E1EEF5',
+        modernTextHex: '#234C63',
+        inkHex: '#1C2421'
+      }
+    };
+
+    // =========================================================
+    // 2. APPLICATION STATE
+    // =========================================================
+    let heroShowModern = false;
+    let selectedCategory = 'ALL';
+    // Track per-card view mode: 'SIDE_BY_SIDE' | 'MODERN_FOCUS'
+    let cardViewModes = {};
+    let activeModalCardId = null;
+    let modalFormat = '4:5';
+    let modalPalette = 'sage';
+
+    let currentQuizIdx = 0;
+    let quizAnswers = {}; // idx -> 'STEREOTYPE' | 'POSITIVE'
+    let activePledgeIdx = 0;
+
+    // =========================================================
+    // 3. HERO INTERACTIVE PREVIEW CARD
+    // =========================================================
+    function renderHeroCard() {
+      const box = document.getElementById('hero-preview-box');
+      const badge = document.getElementById('hero-badge');
+      const title = document.getElementById('hero-card-title');
+      const caption = document.getElementById('hero-card-caption');
+      const btnLabel = document.getElementById('hero-flip-label');
+      const svgSlot = document.getElementById('hero-svg-slot');
+
+      if (!heroShowModern) {
+        box.className = 'rounded-2xl p-5 bg-blush-50 border border-blush-200 transition-all duration-300 space-y-4';
+        badge.className = 'px-2.5 py-1 rounded-md bg-blush-100 text-blush-700 text-[11px] font-bold uppercase tracking-wider';
+        badge.textContent = 'Old Expectation';
+        title.textContent = '“Housework and caregiving are exclusively a woman’s duty.”';
+        caption.textContent = 'Decades of cleaning ads framed domestic care around women alone—making shared responsibility invisible.';
+        btnLabel.textContent = 'Flip to Modern Reality';
+        svgSlot.innerHTML = `
+          <img src="images/photo-shared-home.jpg" alt="Vintage ad stereotype contrast" class="w-full h-full object-cover sepia-[0.55] contrast-90 brightness-95 transition-all duration-500" />
+          <span class="absolute bottom-2.5 left-2.5 px-2.5 py-1 rounded-full bg-blush-700/90 text-white text-[10px] font-bold uppercase tracking-wider shadow-sm">
+            1950s Ad Script
+          </span>
+        `;
+      } else {
+        box.className = 'rounded-2xl p-5 bg-sage-50 border border-sage-200 transition-all duration-300 space-y-4';
+        badge.className = 'px-2.5 py-1 rounded-md bg-sage-100 text-sage-800 text-[11px] font-bold uppercase tracking-wider';
+        badge.textContent = 'Modern Reality';
+        title.textContent = '“A shared home is everyone’s responsibility, regardless of gender.”';
+        caption.textContent = 'Cooking, cleaning, and raising children are everyday life skills shared equally by partners.';
+        btnLabel.textContent = 'View Old Expectation';
+        svgSlot.innerHTML = `
+          <img src="images/photo-shared-home.jpg" alt="Partners sharing kitchen duties equally" class="w-full h-full object-cover transition-all duration-500" />
+          <span class="absolute bottom-2.5 left-2.5 px-2.5 py-1 rounded-full bg-sage-800/90 text-white text-[10px] font-bold uppercase tracking-wider shadow-sm">
+            Shared Partnership
+          </span>
+        `;
+      }
+    }
+
+    function toggleHeroCardMode() {
+      heroShowModern = !heroShowModern;
+      renderHeroCard();
+    }
+
+    // =========================================================
+    // 4. INFOGRAPHIC STUDIO RENDERING & FILTERS
+    // =========================================================
+    function renderCategoryFilters() {
+      const container = document.getElementById('category-filters');
+      const categories = ['ALL', ...INFOGRAPHICS.map(item => item.category)];
+
+      container.innerHTML = categories.map(cat => {
+        const isActive = selectedCategory === cat;
+        const label = cat === 'ALL' ? 'All Cards (5)' : cat;
+        return `
+          <button onclick="setCategory('${cat}')" class="px-3.5 py-2 rounded-full text-xs font-semibold transition-all ${
+            isActive
+              ? 'bg-charcoal text-white shadow-xs'
+              : 'bg-white text-stone-600 border border-stone-200 hover:bg-stone-100'
+          }">
+            ${label}
+          </button>
+        `;
+      }).join('');
+    }
+
+    function setCategory(cat) {
+      selectedCategory = cat;
+      renderCategoryFilters();
+      renderInfographicGrid();
+    }
+
+    function toggleCardMode(cardId) {
+      cardViewModes[cardId] = cardViewModes[cardId] === 'MODERN_FOCUS' ? 'SIDE_BY_SIDE' : 'MODERN_FOCUS';
+      renderInfographicGrid();
+    }
+
+    function renderInfographicGrid() {
+      const grid = document.getElementById('infographic-grid');
+      const visibleCards = selectedCategory === 'ALL'
+        ? INFOGRAPHICS
+        : INFOGRAPHICS.filter(item => item.category === selectedCategory);
+
+      grid.innerHTML = visibleCards.map(card => {
+        const mode = cardViewModes[card.id] || 'SIDE_BY_SIDE';
+        const isModernFocus = mode === 'MODERN_FOCUS';
+        const isSaved = isCardSaved(card.id);
+
+        return `
+          <article class="bg-white rounded-3xl border border-stone-200/90 p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between space-y-5">
+            <div class="space-y-4">
+              <!-- Card Top Header -->
+              <div class="flex items-center justify-between gap-2">
+                <span class="px-2.5 py-1 rounded-full bg-sage-50 border border-sage-200 text-sage-800 text-[11px] font-bold">
+                  ${card.number} • ${card.category}
+                </span>
+                <div class="flex items-center gap-2">
+                  <button onclick="toggleSaveCard('${card.id}')" title="${isSaved ? 'Remove from Saved' : 'Save Card'}" aria-label="${isSaved ? 'Remove from Saved' : 'Save Card'}" class="p-1.5 rounded-full border transition-colors ${
+                    isSaved
+                      ? 'bg-sage-600 border-sage-600 text-white'
+                      : 'bg-white border-stone-200 text-stone-400 hover:text-sage-600 hover:border-sage-300'
+                  }">
+                    <svg class="w-3.5 h-3.5" fill="${isSaved ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+                    </svg>
+                  </button>
+                  <button onclick="toggleCardMode('${card.id}')" class="text-xs font-semibold text-sage-600 hover:text-sage-800 underline">
+                    ${isModernFocus ? 'Side-by-Side' : 'Modern View'}
+                  </button>
+                </div>
+              </div>
+
+              <!-- Editorial Flashcard Photo -->
+              <div class="group/img relative h-44 rounded-2xl bg-paper border border-stone-200/70 overflow-hidden">
+                <img src="${card.photo}" alt="${card.photoAlt}" class="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-500 ${!isModernFocus ? 'brightness-95' : ''}" loading="lazy" />
+                <div class="absolute inset-0 bg-gradient-to-t from-charcoal/45 via-transparent to-transparent pointer-events-none"></div>
+                <span class="absolute bottom-2.5 left-3 px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-sm text-charcoal text-[10px] font-bold uppercase tracking-wider shadow-sm">
+                  ${card.title}
+                </span>
+              </div>
+
+              <!-- Comparison Content -->
+              ${!isModernFocus ? `
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <!-- Old Expectation Box -->
+                  <div class="rounded-2xl bg-blush-50 border border-blush-200/80 p-3.5 space-y-1.5">
+                    <span class="inline-block px-2 py-0.5 rounded bg-blush-100 text-blush-700 text-[10px] font-bold uppercase tracking-wider">
+                      Old Expectation
+                    </span>
+                    <p class="font-serif text-sm font-semibold text-charcoal leading-snug">
+                      ${card.oldHeadline}
+                    </p>
+                    <p class="text-[11px] text-stone-600 leading-relaxed">
+                      ${card.oldDetail}
+                    </p>
+                  </div>
+
+                  <!-- Modern Reality Box -->
+                  <div class="rounded-2xl bg-sage-50 border border-sage-200 p-3.5 space-y-1.5">
+                    <span class="inline-block px-2 py-0.5 rounded bg-sage-100 text-sage-800 text-[10px] font-bold uppercase tracking-wider">
+                      Modern Reality
+                    </span>
+                    <p class="font-serif text-sm font-semibold text-charcoal leading-snug">
+                      ${card.modernHeadline}
+                    </p>
+                    <p class="text-[11px] text-stone-600 leading-relaxed">
+                      ${card.modernDetail}
+                    </p>
+                  </div>
+                </div>
+              ` : `
+                <div class="rounded-2xl bg-sage-50 border border-sage-200 p-5 space-y-2 animate-fade-up">
+                  <span class="inline-block px-2.5 py-0.5 rounded-md bg-sage-600 text-white text-[10px] font-bold uppercase tracking-wider">
+                    The Modern Standard
+                  </span>
+                  <h3 class="font-serif text-lg font-semibold text-charcoal leading-snug">
+                    ${card.modernHeadline}
+                  </h3>
+                  <p class="text-xs sm:text-sm text-stone-600 leading-relaxed">
+                    ${card.modernDetail}
+                  </p>
+                </div>
+              `}
+            </div>
+
+            <!-- Card Action Footer -->
+            <div class="pt-3 border-t border-stone-100 flex items-center gap-2.5">
+              <button onclick="downloadInfographicPng('${card.id}', 'sage', '4:5')" class="flex-1 inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-charcoal hover:bg-sage-800 text-white text-xs font-semibold transition-all">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                </svg>
+                <span>Download PNG</span>
+              </button>
+
+              <button onclick="openShareModal('${card.id}')" class="flex-1 inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-sage-50 hover:bg-sage-100 text-sage-800 border border-sage-200 text-xs font-semibold transition-all">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+                </svg>
+                <span>Customize &amp; Share</span>
+              </button>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    // =========================================================
+    // 5. HIGH-RES CANVAS PNG EXPORT ENGINE (4:5 & 9:16)
+    // =========================================================
+    function wrapCanvasText(ctx, text, x, y, maxWidth, lineHeight) {
+      const words = text.split(' ');
+      let line = '';
+      let currentY = y;
+
+      for (let n = 0; n < words.length; n++) {
+        const testLine = line + words[n] + ' ';
+        const metrics = ctx.measureText(testLine);
+        if (metrics.width > maxWidth && n > 0) {
+          ctx.fillText(line.trim(), x, currentY);
+          line = words[n] + ' ';
+          currentY += lineHeight;
+        } else {
+          line = testLine;
+        }
+      }
+      ctx.fillText(line.trim(), x, currentY);
+      return currentY + lineHeight;
+    }
+
+    function drawRoundRect(ctx, x, y, w, h, r) {
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.arcTo(x + w, y, x + w, y + h, r);
+      ctx.arcTo(x + w, y + h, x, y + h, r);
+      ctx.arcTo(x, y + h, x, y, r);
+      ctx.arcTo(x, y, x + w, y, r);
+      ctx.closePath();
+    }
+
+    function downloadInfographicPng(cardId, paletteKey = 'sage', format = '4:5') {
+      const card = INFOGRAPHICS.find(c => c.id === cardId);
+      if (!card) return;
+      const pal = PALETTES[paletteKey] || PALETTES.sage;
+
+      const canvas = document.getElementById('export-canvas');
+      const width = 1080;
+      const height = format === '9:16' ? 1920 : 1350;
+      canvas.width = width;
+      canvas.height = height;
+
+      const ctx = canvas.getContext('2d');
+
+      // Background Fill
+      ctx.fillStyle = pal.bgHex;
+      ctx.fillRect(0, 0, width, height);
+
+      // Subtle Top Accent Bar
+      ctx.fillStyle = pal.accentHex;
+      ctx.fillRect(0, 0, width, 18);
+
+      const pad = 76;
+      const topOffset = format === '9:16' ? 150 : 88;
+
+      // Brand Header
+      ctx.fillStyle = pal.accentHex;
+      ctx.font = 'bold 26px Inter, sans-serif';
+      ctx.fillText('BEYOND LABELS  •  ' + card.category.toUpperCase(), pad, topOffset);
+
+      // Main Card Title
+      ctx.fillStyle = pal.inkHex;
+      ctx.font = 'bold 62px Georgia, serif';
+      ctx.fillText(card.title, pad, topOffset + 78);
+
+      ctx.fillStyle = '#57534E';
+      ctx.font = '400 28px Inter, sans-serif';
+      ctx.fillText('Rethinking gender expectations in media & social media', pad, topOffset + 128);
+
+      // Box Dimensions
+      const boxWidth = width - pad * 2;
+      const boxHeight = format === '9:16' ? 540 : 410;
+      const oldBoxY = topOffset + 185;
+      const modernBoxY = oldBoxY + boxHeight + (format === '9:16' ? 56 : 38);
+
+      // --- BOX 1: OLD EXPECTATION ---
+      drawRoundRect(ctx, pad, oldBoxY, boxWidth, boxHeight, 36);
+      ctx.fillStyle = pal.oldBgHex;
+      ctx.fill();
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = '#E7D5D2';
+      ctx.stroke();
+
+      // Pill badge
+      drawRoundRect(ctx, pad + 44, oldBoxY + 40, 270, 46, 14);
+      ctx.fillStyle = '#F2CBC5';
+      ctx.fill();
+      ctx.fillStyle = pal.oldTextHex;
+      ctx.font = 'bold 22px Inter, sans-serif';
+      ctx.fillText('OLD EXPECTATION', pad + 68, oldBoxY + 71);
+
+      // Old Headline
+      ctx.fillStyle = pal.inkHex;
+      ctx.font = 'bold 40px Georgia, serif';
+      let nextY = wrapCanvasText(ctx, '“' + card.oldHeadline + '”', pad + 44, oldBoxY + 145, boxWidth - 88, 52);
+
+      // Old Detail
+      ctx.fillStyle = '#57534E';
+      ctx.font = '400 27px Inter, sans-serif';
+      wrapCanvasText(ctx, card.oldDetail, pad + 44, nextY + 18, boxWidth - 88, 38);
+
+      // --- BOX 2: MODERN REALITY ---
+      drawRoundRect(ctx, pad, modernBoxY, boxWidth, boxHeight, 36);
+      ctx.fillStyle = pal.cardBgHex;
+      ctx.fill();
+      ctx.lineWidth = 4;
+      ctx.strokeStyle = pal.accentHex;
+      ctx.stroke();
+
+      // Pill badge
+      drawRoundRect(ctx, pad + 44, modernBoxY + 40, 265, 46, 14);
+      ctx.fillStyle = pal.modernBgHex;
+      ctx.fill();
+      ctx.fillStyle = pal.modernTextHex;
+      ctx.font = 'bold 22px Inter, sans-serif';
+      ctx.fillText('MODERN REALITY', pad + 68, modernBoxY + 71);
+
+      // Modern Headline
+      ctx.fillStyle = pal.inkHex;
+      ctx.font = 'bold 40px Georgia, serif';
+      let nextY2 = wrapCanvasText(ctx, '“' + card.modernHeadline + '”', pad + 44, modernBoxY + 145, boxWidth - 88, 52);
+
+      // Modern Detail
+      ctx.fillStyle = '#44403C';
+      ctx.font = '400 27px Inter, sans-serif';
+      wrapCanvasText(ctx, card.modernDetail, pad + 44, nextY2 + 18, boxWidth - 88, 38);
+
+      // Footer
+      const footerY = height - (format === '9:16' ? 110 : 68);
+      ctx.fillStyle = pal.accentHex;
+      ctx.font = 'bold 28px Inter, sans-serif';
+      ctx.fillText('#BeyondGenderLabels', pad, footerY);
+
+      ctx.fillStyle = '#57534E';
+      ctx.font = '500 24px Inter, sans-serif';
+      ctx.textAlign = 'right';
+      ctx.fillText('Abilities & Personalities Have No Gender', width - pad, footerY);
+      ctx.textAlign = 'left';
+
+      // Trigger PNG download
+      const link = document.createElement('a');
+      link.download = `BeyondLabels-${card.id}-${format.replace(':', 'x')}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+
+      showToast(`Downloaded "${card.title}" (${format}) as PNG!`);
+    }
+
+    // =========================================================
+    // 6. CUSTOMIZE & SHARE MODAL LOGIC
+    // =========================================================
+    function openShareModal(cardId) {
+      activeModalCardId = cardId;
+      const card = INFOGRAPHICS.find(c => c.id === cardId);
+      if (!card) return;
+
+      document.getElementById('modal-card-heading').textContent = `Share: ${card.title}`;
+      document.getElementById('modal-caption-box').value = card.caption;
+
+      const modal = document.getElementById('share-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      renderModalPreview();
+    }
+
+    function closeShareModal() {
+      const modal = document.getElementById('share-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function setModalFormat(fmt) {
+      modalFormat = fmt;
+      const btn45 = document.getElementById('fmt-btn-45');
+      const btn916 = document.getElementById('fmt-btn-916');
+      const note = document.getElementById('modal-ratio-note');
+
+      if (fmt === '4:5') {
+        btn45.className = 'py-2.5 px-3 rounded-xl border text-xs font-bold transition-all bg-charcoal text-white border-charcoal';
+        btn916.className = 'py-2.5 px-3 rounded-xl border text-xs font-bold transition-all bg-white text-stone-700 border-stone-300 hover:bg-stone-50';
+        note.textContent = 'Instagram / Feed Post Format (1080 × 1350 px • 4:5)';
+      } else {
+        btn916.className = 'py-2.5 px-3 rounded-xl border text-xs font-bold transition-all bg-charcoal text-white border-charcoal';
+        btn45.className = 'py-2.5 px-3 rounded-xl border text-xs font-bold transition-all bg-white text-stone-700 border-stone-300 hover:bg-stone-50';
+        note.textContent = 'Instagram / TikTok Story Format (1080 × 1920 px • 9:16)';
+      }
+      renderModalPreview();
+    }
+
+    function setModalPalette(palKey) {
+      modalPalette = palKey;
+      ['sage', 'blush', 'sky'].forEach(key => {
+        const btn = document.getElementById(`pal-btn-${key}`);
+        if (key === palKey) {
+          btn.className = 'flex items-center gap-2 p-2.5 rounded-xl border-2 border-charcoal bg-white text-xs font-semibold text-charcoal';
+        } else {
+          btn.className = 'flex items-center gap-2 p-2.5 rounded-xl border border-stone-300 bg-white text-xs font-semibold text-charcoal';
+        }
+      });
+      renderModalPreview();
+    }
+
+    function renderModalPreview() {
+      const card = INFOGRAPHICS.find(c => c.id === activeModalCardId);
+      if (!card) return;
+      const pal = PALETTES[modalPalette];
+      const preview = document.getElementById('modal-live-preview');
+
+      preview.style.backgroundColor = pal.bgHex;
+      preview.style.aspectRatio = modalFormat === '9:16' ? '9 / 16' : '4 / 5';
+      preview.style.maxWidth = modalFormat === '9:16' ? '235px' : '305px';
+
+      preview.innerHTML = `
+        <div class="space-y-1.5">
+          <span class="text-[9px] font-bold uppercase tracking-wider block" style="color: ${pal.accentHex}">
+            BEYOND LABELS • ${card.category}
+          </span>
+          <h4 class="font-serif text-base font-bold text-charcoal leading-tight">${card.title}</h4>
+        </div>
+
+        <div class="space-y-2 my-auto py-2">
+          <div class="p-2.5 rounded-xl border border-stone-200/80" style="background-color: ${pal.oldBgHex}">
+            <span class="text-[8px] font-bold uppercase tracking-wider block mb-0.5" style="color: ${pal.oldTextHex}">Old Expectation</span>
+            <p class="font-serif text-[11px] font-semibold text-charcoal leading-snug">“${card.oldHeadline}”</p>
+          </div>
+          <div class="p-2.5 rounded-xl bg-white border-2" style="border-color: ${pal.accentHex}">
+            <span class="text-[8px] font-bold uppercase tracking-wider block mb-0.5" style="color: ${pal.modernTextHex}">Modern Reality</span>
+            <p class="font-serif text-[11px] font-semibold text-charcoal leading-snug">“${card.modernHeadline}”</p>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between text-[9px] font-bold pt-1" style="color: ${pal.accentHex}">
+          <span>#BeyondGenderLabels</span>
+          <span class="text-stone-500 font-medium">No Gender Labels</span>
+        </div>
+      `;
+    }
+
+    function downloadModalCustomPng() {
+      if (!activeModalCardId) return;
+      downloadInfographicPng(activeModalCardId, modalPalette, modalFormat);
+    }
+
+    function copyModalCaption() {
+      const textarea = document.getElementById('modal-caption-box');
+      textarea.select();
+      textarea.setSelectionRange(0, 99999);
+      try {
+        document.execCommand('copy');
+        showToast('Caption copied to clipboard! Ready to paste.');
+      } catch (e) {
+        showToast('Select and copy the caption text above.');
+      }
+    }
+
+    // =========================================================
+    // 7. "CATCH THE STEREOTYPE" INTERACTIVE REALITY CHECK
+    // =========================================================
+    function renderQuiz() {
+      const dots = document.getElementById('quiz-progress-dots');
+      const counter = document.getElementById('quiz-counter-label');
+      const stage = document.getElementById('quiz-stage');
+
+      counter.textContent = `Scenario ${currentQuizIdx + 1} of ${QUIZ_SCENARIOS.length}`;
+
+      dots.innerHTML = QUIZ_SCENARIOS.map((_, idx) => {
+        const isCurrent = idx === currentQuizIdx;
+        const isAnswered = Boolean(quizAnswers[idx]);
+        return `
+          <button onclick="goToQuiz(${idx})" aria-label="Go to scenario ${idx + 1}" class="h-2.5 rounded-full transition-all ${
+            isCurrent ? 'w-8 bg-charcoal' : isAnswered ? 'w-2.5 bg-sage-500' : 'w-2.5 bg-stone-200'
+          }"></button>
+        `;
+      }).join('');
+
+      const sc = QUIZ_SCENARIOS[currentQuizIdx];
+      const userChoice = quizAnswers[currentQuizIdx];
+
+      stage.innerHTML = `
+        <div class="space-y-4">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-paper border border-stone-200 text-xs font-semibold text-stone-600">
+            ${sc.platform}
+          </span>
+
+          <blockquote class="font-serif text-xl sm:text-2xl font-medium text-charcoal leading-relaxed">
+            “${sc.prompt}”
+          </blockquote>
+        </div>
+
+        ${!userChoice ? `
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
+            <button onclick="submitQuizVote('STEREOTYPE')" class="p-4 rounded-2xl border-2 border-blush-200 bg-blush-50/70 hover:bg-blush-100 text-left transition-all group">
+              <span class="text-xs font-bold uppercase tracking-wider text-blush-700 block">Option A</span>
+              <span class="font-display text-base font-bold text-charcoal group-hover:text-blush-700 transition-colors">
+                Outdated Stereotype
+              </span>
+            </button>
+
+            <button onclick="submitQuizVote('POSITIVE')" class="p-4 rounded-2xl border-2 border-sage-200 bg-sage-50/70 hover:bg-sage-100 text-left transition-all group">
+              <span class="text-xs font-bold uppercase tracking-wider text-sage-800 block">Option B</span>
+              <span class="font-display text-base font-bold text-charcoal group-hover:text-sage-800 transition-colors">
+                Positive Representation
+              </span>
+            </button>
+          </div>
+        ` : `
+          <div class="rounded-2xl p-5 sm:p-6 border ${
+            userChoice === sc.correctAnswer
+              ? 'bg-sage-50 border-sage-200'
+              : 'bg-blush-50 border-blush-200'
+          } space-y-3 animate-fade-up">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <span class="px-2.5 py-1 rounded-lg text-xs font-bold uppercase tracking-wider ${
+                userChoice === sc.correctAnswer
+                  ? 'bg-sage-600 text-white'
+                  : 'bg-blush-700 text-white'
+              }">
+                ${userChoice === sc.correctAnswer ? 'Good Eye!' : 'Look Closer'}
+              </span>
+              <span class="text-xs font-semibold text-stone-600">
+                ${sc.stereotypePercent}% of readers spotted this pattern
+              </span>
+            </div>
+
+            <p class="text-sm sm:text-base text-charcoal leading-relaxed">
+              ${sc.explanation}
+            </p>
+
+            ${sc.research ? `
+              <div class="rounded-xl bg-white/90 border border-stone-200/90 p-4 space-y-1.5">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                  <span class="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-sage-800">
+                    <svg class="w-3.5 h-3.5 text-sage-600" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                    </svg>
+                    Peer-Reviewed Research Evidence
+                  </span>
+                  <a href="${sc.research.doiUrl}" target="_blank" rel="noopener noreferrer" class="text-[11px] font-bold text-sage-600 hover:text-sage-800 underline">
+                    Read Paper (DOI) ↗
+                  </a>
+                </div>
+                <p class="text-xs font-semibold text-charcoal">
+                  ${sc.research.title}
+                </p>
+                <p class="text-[11px] font-medium text-stone-500">
+                  ${sc.research.citation}
+                </p>
+                <p class="text-xs text-stone-600 leading-relaxed pt-0.5">
+                  ${sc.research.finding}
+                </p>
+              </div>
+            ` : ''}
+
+            <div class="pt-2 flex items-center justify-between">
+              <button onclick="prevQuiz()" class="text-xs font-semibold text-stone-500 hover:text-charcoal ${currentQuizIdx === 0 ? 'invisible' : ''}">
+                ← Previous
+              </button>
+              <button onclick="nextQuiz()" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-charcoal hover:bg-sage-800 text-white text-xs font-semibold transition-colors">
+                <span>${currentQuizIdx < QUIZ_SCENARIOS.length - 1 ? 'Next Scenario →' : 'Restart Check'}</span>
+              </button>
+            </div>
+          </div>
+        `}
+      `;
+    }
+
+    function submitQuizVote(choice) {
+      quizAnswers[currentQuizIdx] = choice;
+      saveUserQuizProgress();
+      renderQuiz();
+      const answeredCount = Object.keys(quizAnswers).length;
+      if (answeredCount === QUIZ_SCENARIOS.length) {
+        const score = QUIZ_SCENARIOS.filter((q, idx) => quizAnswers[idx] === q.correctAnswer).length;
+        showToast(`Reality Check complete: ${score}/${QUIZ_SCENARIOS.length} spotted!`);
+      }
+    }
+
+    function goToQuiz(idx) {
+      currentQuizIdx = idx;
+      renderQuiz();
+    }
+
+    function prevQuiz() {
+      if (currentQuizIdx > 0) {
+        currentQuizIdx--;
+        renderQuiz();
+      }
+    }
+
+    function nextQuiz() {
+      if (currentQuizIdx < QUIZ_SCENARIOS.length - 1) {
+        currentQuizIdx++;
+      } else {
+        quizAnswers = {};
+        currentQuizIdx = 0;
+        saveUserQuizProgress();
+      }
+      renderQuiz();
+    }
+
+    // =========================================================
+    // 8. PLEDGE WALL & PERSONAL BADGE GENERATOR
+    // =========================================================
+    function renderPledgeWall() {
+      const chips = document.getElementById('pledge-chips');
+      const quoteEl = document.getElementById('pledge-quote-text');
+      const subEl = document.getElementById('pledge-subtext');
+
+      chips.innerHTML = PLEDGES.map((p, idx) => {
+        const active = idx === activePledgeIdx;
+        return `
+          <button onclick="selectPledge(${idx})" class="px-3.5 py-2 rounded-full text-xs font-semibold transition-all ${
+            active
+              ? 'bg-cream text-charcoal shadow-sm'
+              : 'bg-white/10 hover:bg-white/20 text-white border border-white/20'
+          }">
+            ${p.chip}
+          </button>
+        `;
+      }).join('');
+
+      const current = PLEDGES[activePledgeIdx];
+      quoteEl.textContent = current.quote;
+      subEl.textContent = current.subtext;
+    }
+
+    function selectPledge(idx) {
+      activePledgeIdx = idx;
+      renderPledgeWall();
+    }
+
+    function copyPledgeText() {
+      const current = PLEDGES[activePledgeIdx];
+      const textToCopy = `${current.quote} — ${current.subtext} #BeyondGenderLabels`;
+
+      const tempInput = document.createElement('textarea');
+      tempInput.value = textToCopy;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      try {
+        document.execCommand('copy');
+        showToast('Pledge quote copied to clipboard!');
+      } catch (e) {
+        showToast('Unable to copy automatically.');
+      }
+      document.body.removeChild(tempInput);
+    }
+
+    function downloadPledgePng() {
+      const current = PLEDGES[activePledgeIdx];
+      const canvas = document.getElementById('export-canvas');
+      canvas.width = 1080;
+      canvas.height = 1080;
+      const ctx = canvas.getContext('2d');
+
+      // Warm Cream Background
+      ctx.fillStyle = '#FAF8F4';
+      ctx.fillRect(0, 0, 1080, 1080);
+
+      // Sage Inner Card
+      drawRoundRect(ctx, 72, 72, 936, 936, 48);
+      ctx.fillStyle = '#F2F7F4';
+      ctx.fill();
+      ctx.lineWidth = 4;
+      ctx.strokeStyle = '#C5DBC9';
+      ctx.stroke();
+
+      ctx.fillStyle = '#497358';
+      ctx.font = 'bold 26px Inter, sans-serif';
+      ctx.fillText('BEYOND LABELS  •  PERSONAL PLEDGE', 136, 175);
+
+      ctx.fillStyle = '#1C2421';
+      ctx.font = 'bold 62px Georgia, serif';
+      const nextY = wrapCanvasText(ctx, current.quote, 136, 320, 808, 82);
+
+      ctx.fillStyle = '#57534E';
+      ctx.font = '400 32px Inter, sans-serif';
+      wrapCanvasText(ctx, current.subtext, 136, nextY + 36, 808, 46);
+
+      ctx.fillStyle = '#274232';
+      ctx.font = 'bold 28px Inter, sans-serif';
+      ctx.fillText('#BeyondGenderLabels', 136, 925);
+
+      const link = document.createElement('a');
+      link.download = 'BeyondLabels-PledgeBadge.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+
+      showToast('Downloaded your Personal Pledge Badge PNG!');
+    }
+
+    // =========================================================
+    // 10. PHOTO STORIES & COMMUNITY GALLERY
+    // =========================================================
+    const STORAGE_KEYS = {
+      USERS: 'beyond_labels_users_v1',
+      SESSION: 'beyond_labels_session_v1',
+      STORIES: 'beyond_labels_photo_stories_v1'
+    };
+
+    const CURATED_PHOTO_STORIES = [
+      {
+        id: 'curated-shared-home',
+        photo: 'images/photo-shared-home.jpg',
+        tag: 'Home & Care',
+        title: 'Shared Kitchen, Shared Life',
+        caption: 'Cooking and cleaning are everyday life skills—never one partner’s unspoken duty.',
+        author: 'Editorial Feature',
+        isCurated: true
+      },
+      {
+        id: 'curated-creators',
+        photo: 'images/photo-creators.jpg',
+        tag: 'Digital Creators',
+        title: 'Craft Over Labels',
+        caption: 'Judging creators by their storytelling and hard work instead of gender stereotypes.',
+        author: 'Editorial Feature',
+        isCurated: true
+      },
+      {
+        id: 'curated-vulnerability',
+        photo: 'images/photo-vulnerability.jpg',
+        tag: 'Emotional Health',
+        title: 'Quiet Strength & Reflection',
+        caption: 'Men deserve space to reflect, journal, and express emotion without pressure to "tough it out."',
+        author: 'Editorial Feature',
+        isCurated: true
+      },
+      {
+        id: 'curated-community',
+        photo: 'images/photo-community.jpg',
+        tag: 'Community',
+        title: 'Showing Up As Ourselves',
+        caption: 'When we drop rigid boxes, everyone gains room to grow, lead, and belong.',
+        author: 'Editorial Feature',
+        isCurated: true
+      }
+    ];
+
+    let pendingStoryPhotoDataUrl = '';
+
+    function getUserPhotoStories() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEYS.STORIES) || '[]');
+      } catch {
+        return [];
+      }
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    function renderPhotoStories() {
+      const grid = document.getElementById('photo-stories-grid');
+      if (!grid) return;
+      const allStories = [...getUserPhotoStories(), ...CURATED_PHOTO_STORIES];
+
+      grid.innerHTML = allStories.map(story => `
+        <article class="group bg-cream rounded-3xl border border-stone-200/90 overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+          <div>
+            <div class="relative h-56 overflow-hidden bg-paper">
+              <img src="${story.photo}" alt="${escapeHtml(story.title)}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+              <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-sm text-sage-800 text-[10px] font-bold uppercase tracking-wider shadow-sm">
+                ${escapeHtml(story.tag || 'Community')}
+              </span>
+              ${!story.isCurated && currentUser && story.authorEmail === currentUser.email ? `
+                <button onclick="deleteUserStory('${story.id}')" title="Delete your story" class="absolute top-3 right-3 p-1.5 rounded-full bg-white/90 text-blush-700 hover:bg-blush-100 text-xs shadow-sm transition-colors">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                  </svg>
+                </button>
+              ` : ''}
+            </div>
+            <div class="p-5 space-y-2">
+              <h3 class="font-serif text-lg font-semibold text-charcoal leading-snug">
+                ${escapeHtml(story.title)}
+              </h3>
+              <p class="text-xs sm:text-sm text-stone-600 leading-relaxed">
+                ${escapeHtml(story.caption)}
+              </p>
+            </div>
+          </div>
+          <div class="px-5 pb-4 pt-3 border-t border-stone-200/70 flex items-center justify-between text-[11px] font-semibold text-stone-500">
+            <span>By ${escapeHtml(story.author)}</span>
+            <span class="text-sage-600">#BeyondLabels</span>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function resizeImageToDataUrl(file, maxSize = 720, quality = 0.82) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const img = new Image();
+          img.onload = () => {
+            const scale = Math.min(1, maxSize / Math.max(img.width, img.height));
+            const canvas = document.createElement('canvas');
+            canvas.width = Math.round(img.width * scale);
+            canvas.height = Math.round(img.height * scale);
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            resolve(canvas.toDataURL('image/jpeg', quality));
+          };
+          img.onerror = reject;
+          img.src = reader.result;
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function openPhotoStoryModal() {
+      if (!currentUser) {
+        showToast('Please log in to share a photo story.');
+        openAuthModal('login');
+        return;
+      }
+      pendingStoryPhotoDataUrl = '';
+      document.getElementById('story-photo-input').value = '';
+      document.getElementById('story-title-input').value = '';
+      document.getElementById('story-caption-input').value = '';
+      document.getElementById('story-photo-preview-box').innerHTML = '<span class="text-xs font-medium">Choose a photo from your device</span>';
+      const modal = document.getElementById('photo-story-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closePhotoStoryModal() {
+      const modal = document.getElementById('photo-story-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    async function handleStoryPhotoUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      try {
+        pendingStoryPhotoDataUrl = await resizeImageToDataUrl(file, 720, 0.8);
+        document.getElementById('story-photo-preview-box').innerHTML = `<img src="${pendingStoryPhotoDataUrl}" alt="Story preview" class="w-full h-full object-cover" />`;
+      } catch {
+        showToast('Could not read that image file.');
+      }
+    }
+
+    function handlePhotoStorySubmit(event) {
+      event.preventDefault();
+      if (!currentUser || !pendingStoryPhotoDataUrl) {
+        showToast('Please select a photo first.');
+        return;
+      }
+      const title = document.getElementById('story-title-input').value.trim();
+      const caption = document.getElementById('story-caption-input').value.trim();
+      const stories = getUserPhotoStories();
+      stories.unshift({
+        id: 'story-' + Date.now(),
+        photo: pendingStoryPhotoDataUrl,
+        tag: 'Member Story',
+        title,
+        caption,
+        author: currentUser.name,
+        authorEmail: currentUser.email,
+        isCurated: false
+      });
+      localStorage.setItem(STORAGE_KEYS.STORIES, JSON.stringify(stories));
+      closePhotoStoryModal();
+      renderPhotoStories();
+      showToast('Your photo story is now live!');
+    }
+
+    function deleteUserStory(storyId) {
+      const stories = getUserPhotoStories().filter(s => s.id !== storyId);
+      localStorage.setItem(STORAGE_KEYS.STORIES, JSON.stringify(stories));
+      renderPhotoStories();
+      showToast('Removed your photo story.');
+    }
+
+    // =========================================================
+    // 11. CLIENT-SIDE AUTHENTICATION & MEMBER SYSTEM
+    // =========================================================
+    let currentUser = null;
+    let authMode = 'login';
+    let pendingSignupAvatar = '';
+
+    function getUsers() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEYS.USERS) || '[]');
+      } catch {
+        return [];
+      }
+    }
+
+    function saveUsers(users) {
+      localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(users));
+    }
+
+    function getUserInitials(name) {
+      return (name || 'BL')
+        .split(/\s+/)
+        .map(part => part[0])
+        .join('')
+        .toUpperCase()
+        .slice(0, 2);
+    }
+
+    function initAuth() {
+      const sessionEmail = localStorage.getItem(STORAGE_KEYS.SESSION);
+      if (sessionEmail) {
+        const found = getUsers().find(u => u.email === sessionEmail);
+        if (found) {
+          currentUser = found;
+          quizAnswers = { ...(found.quizAnswers || {}) };
+        }
+      }
+      renderAuthHeader();
+    }
+
+    function renderAvatarMarkup(user, sizeClass = 'w-8 h-8 text-xs') {
+      if (user.avatar) {
+        return `<img src="${user.avatar}" alt="${escapeHtml(user.name)}" class="${sizeClass} rounded-full object-cover border border-sage-200 shrink-0" />`;
+      }
+      return `<span class="${sizeClass} rounded-full bg-sage-600 text-white font-display font-bold flex items-center justify-center shrink-0">${getUserInitials(user.name)}</span>`;
+    }
+
+    function renderAuthHeader() {
+      const slot = document.getElementById('auth-header-slot');
+      const mobileSlot = document.getElementById('mobile-auth-slot');
+      if (!slot || !mobileSlot) return;
+
+      if (!currentUser) {
+        slot.innerHTML = `
+          <button onclick="openAuthModal('login')" class="px-3.5 py-2 rounded-full text-xs sm:text-sm font-semibold text-charcoal hover:bg-paper border border-stone-200 transition-colors">
+            Log In
+          </button>
+          <button onclick="openAuthModal('signup')" class="hidden sm:inline-flex px-3.5 py-2 rounded-full text-xs sm:text-sm font-semibold bg-sage-100 hover:bg-sage-200 text-sage-800 transition-colors">
+            Sign Up
+          </button>
+        `;
+        mobileSlot.innerHTML = `
+          <button onclick="closeMobileMenu(); openAuthModal('login')" class="flex-1 py-2.5 rounded-xl border border-stone-300 bg-white text-xs font-semibold text-charcoal">Log In</button>
+          <button onclick="closeMobileMenu(); openAuthModal('signup')" class="flex-1 py-2.5 rounded-xl bg-sage-600 text-xs font-semibold text-white">Create Account</button>
+        `;
+      } else {
+        const savedCount = (currentUser.savedCards || []).length;
+        slot.innerHTML = `
+          <button onclick="openProfileModal()" class="inline-flex items-center gap-2 pl-1.5 pr-3 py-1 rounded-full bg-white hover:bg-paper border border-stone-200 transition-colors">
+            ${renderAvatarMarkup(currentUser, 'w-7 h-7 text-[11px]')}
+            <span class="text-xs sm:text-sm font-semibold text-charcoal max-w-[100px] truncate">${escapeHtml(currentUser.name)}</span>
+            ${savedCount > 0 ? `<span class="px-1.5 py-0.5 rounded-full bg-sage-100 text-sage-800 text-[10px] font-bold">${savedCount}</span>` : ''}
+          </button>
+        `;
+        mobileSlot.innerHTML = `
+          <button onclick="closeMobileMenu(); openProfileModal()" class="flex-1 py-2.5 px-3 rounded-xl border border-stone-300 bg-white text-xs font-semibold text-charcoal flex items-center justify-center gap-2">
+            ${renderAvatarMarkup(currentUser, 'w-5 h-5 text-[9px]')}
+            <span>My Profile (${savedCount} saved)</span>
+          </button>
+          <button onclick="closeMobileMenu(); logoutUser()" class="py-2.5 px-4 rounded-xl bg-blush-50 text-blush-700 text-xs font-semibold">Sign Out</button>
+        `;
+      }
+    }
+
+    function openAuthModal(mode = 'login') {
+      switchAuthTab(mode);
+      document.getElementById('auth-error').classList.add('hidden');
+      const modal = document.getElementById('auth-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeAuthModal() {
+      const modal = document.getElementById('auth-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function switchAuthTab(mode) {
+      authMode = mode;
+      const isSignup = mode === 'signup';
+      document.getElementById('auth-signup-fields').classList.toggle('hidden', !isSignup);
+      document.getElementById('auth-name').required = isSignup;
+      document.getElementById('auth-modal-title').textContent = isSignup ? 'Create Your Account' : 'Welcome Back';
+      document.getElementById('auth-submit-btn').textContent = isSignup ? 'Create Account' : 'Log In';
+
+      const loginTab = document.getElementById('auth-tab-login');
+      const signupTab = document.getElementById('auth-tab-signup');
+      loginTab.className = `py-2 rounded-xl text-xs font-bold transition-all ${!isSignup ? 'bg-charcoal text-white shadow-sm' : 'text-stone-600 hover:text-charcoal'}`;
+      signupTab.className = `py-2 rounded-xl text-xs font-bold transition-all ${isSignup ? 'bg-charcoal text-white shadow-sm' : 'text-stone-600 hover:text-charcoal'}`;
+      document.getElementById('auth-error').classList.add('hidden');
+    }
+
+    function togglePasswordVisibility() {
+      const input = document.getElementById('auth-password');
+      const btn = document.getElementById('auth-pwd-toggle');
+      const isHidden = input.type === 'password';
+      input.type = isHidden ? 'text' : 'password';
+      btn.textContent = isHidden ? 'Hide' : 'Show';
+    }
+
+    async function handleAuthAvatarUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      try {
+        pendingSignupAvatar = await resizeImageToDataUrl(file, 240, 0.8);
+        document.getElementById('auth-avatar-preview').innerHTML = `<img src="${pendingSignupAvatar}" alt="Avatar preview" class="w-full h-full object-cover" />`;
+      } catch {
+        showToast('Could not process that image.');
+      }
+    }
+
+    function showAuthError(msg) {
+      const el = document.getElementById('auth-error');
+      el.textContent = msg;
+      el.classList.remove('hidden');
+    }
+
+    function handleAuthSubmit(event) {
+      event.preventDefault();
+      const email = document.getElementById('auth-email').value.trim().toLowerCase();
+      const password = document.getElementById('auth-password').value;
+      const users = getUsers();
+
+      if (authMode === 'signup') {
+        const name = document.getElementById('auth-name').value.trim();
+        if (!name) return showAuthError('Please enter your name.');
+        if (users.some(u => u.email === email)) {
+          return showAuthError('An account with this email already exists. Try logging in.');
+        }
+        const newUser = {
+          name,
+          email,
+          password,
+          avatar: pendingSignupAvatar || '',
+          savedCards: [],
+          quizAnswers: { ...quizAnswers },
+          joinedAt: new Date().toLocaleDateString()
+        };
+        users.push(newUser);
+        saveUsers(users);
+        completeLogin(newUser);
+        showToast(`Welcome to Beyond Labels, ${newUser.name}!`);
+      } else {
+        const user = users.find(u => u.email === email && u.password === password);
+        if (!user) {
+          return showAuthError('Invalid email or password. Or click "Try Demo Account" below.');
+        }
+        completeLogin(user);
+        showToast(`Welcome back, ${user.name}!`);
+      }
+    }
+
+    function loginDemoAccount() {
+      const users = getUsers();
+      const demoEmail = 'maya@beyondlabels.org';
+      let demoUser = users.find(u => u.email === demoEmail);
+      if (!demoUser) {
+        demoUser = {
+          name: 'Maya Lin',
+          email: demoEmail,
+          password: 'demo',
+          avatar: 'images/photo-community.jpg',
+          savedCards: ['home-caregiving', 'social-media-pressure'],
+          quizAnswers: {},
+          joinedAt: new Date().toLocaleDateString()
+        };
+        users.push(demoUser);
+        saveUsers(users);
+      }
+      completeLogin(demoUser);
+      showToast('Signed in as Maya Lin (Demo Account)');
+    }
+
+    function completeLogin(user) {
+      currentUser = user;
+      localStorage.setItem(STORAGE_KEYS.SESSION, user.email);
+      quizAnswers = { ...(user.quizAnswers || {}) };
+      pendingSignupAvatar = '';
+      closeAuthModal();
+      renderAuthHeader();
+      renderInfographicGrid();
+      renderQuiz();
+      renderPhotoStories();
+      renderForum();
+    }
+
+    function logoutUser() {
+      currentUser = null;
+      localStorage.removeItem(STORAGE_KEYS.SESSION);
+      closeProfileModal();
+      renderAuthHeader();
+      renderInfographicGrid();
+      renderPhotoStories();
+      renderForum();
+      showToast('You have been signed out.');
+    }
+
+    function updateCurrentUserRecord(mutator) {
+      if (!currentUser) return;
+      const users = getUsers();
+      const idx = users.findIndex(u => u.email === currentUser.email);
+      if (idx === -1) return;
+      mutator(users[idx]);
+      currentUser = users[idx];
+      saveUsers(users);
+    }
+
+    function isCardSaved(cardId) {
+      return Boolean(currentUser && (currentUser.savedCards || []).includes(cardId));
+    }
+
+    function toggleSaveCard(cardId) {
+      if (!currentUser) {
+        showToast('Log in to save infographic cards to your collection.');
+        openAuthModal('login');
+        return;
+      }
+      let added = false;
+      updateCurrentUserRecord(user => {
+        user.savedCards = user.savedCards || [];
+        if (user.savedCards.includes(cardId)) {
+          user.savedCards = user.savedCards.filter(id => id !== cardId);
+        } else {
+          user.savedCards.push(cardId);
+          added = true;
+        }
+      });
+      renderAuthHeader();
+      renderInfographicGrid();
+      showToast(added ? 'Saved card to your collection!' : 'Removed card from saved.');
+    }
+
+    function saveUserQuizProgress() {
+      if (!currentUser) return;
+      updateCurrentUserRecord(user => {
+        user.quizAnswers = { ...quizAnswers };
+      });
+    }
+
+    function openProfileModal() {
+      if (!currentUser) return openAuthModal('login');
+      renderProfileModalBody();
+      const modal = document.getElementById('profile-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeProfileModal() {
+      const modal = document.getElementById('profile-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    async function handleProfileAvatarUpdate(event) {
+      const file = event.target.files[0];
+      if (!file || !currentUser) return;
+      try {
+        const dataUrl = await resizeImageToDataUrl(file, 240, 0.8);
+        updateCurrentUserRecord(user => { user.avatar = dataUrl; });
+        renderAuthHeader();
+        renderProfileModalBody();
+        showToast('Updated your profile photo!');
+      } catch {
+        showToast('Could not update photo.');
+      }
+    }
+
+    function renderProfileModalBody() {
+      const body = document.getElementById('profile-modal-body');
+      if (!body || !currentUser) return;
+
+      const savedIds = currentUser.savedCards || [];
+      const savedCards = INFOGRAPHICS.filter(c => savedIds.includes(c.id));
+      const answeredCount = Object.keys(quizAnswers).length;
+      const correctCount = QUIZ_SCENARIOS.filter((q, idx) => quizAnswers[idx] === q.correctAnswer).length;
+
+      body.innerHTML = `
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white rounded-2xl p-4 border border-stone-200">
+          <div class="flex items-center gap-4">
+            ${renderAvatarMarkup(currentUser, 'w-14 h-14 text-lg')}
+            <div>
+              <h4 class="font-serif text-lg font-semibold text-charcoal">${escapeHtml(currentUser.name)}</h4>
+              <p class="text-xs text-stone-500">${escapeHtml(currentUser.email)}</p>
+              <label class="inline-block mt-1.5 text-[11px] font-bold text-sage-600 hover:text-sage-800 underline cursor-pointer">
+                Change Profile Photo
+                <input type="file" accept="image/*" onchange="handleProfileAvatarUpdate(event)" class="hidden" />
+              </label>
+            </div>
+          </div>
+          <button onclick="logoutUser()" class="px-4 py-2 rounded-xl bg-blush-50 hover:bg-blush-100 text-blush-700 text-xs font-semibold transition-colors self-start sm:self-center">
+            Sign Out
+          </button>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div class="bg-white rounded-2xl p-4 border border-stone-200">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-stone-400 block">Saved Infographics</span>
+            <span class="font-serif text-2xl font-bold text-charcoal">${savedCards.length}</span>
+          </div>
+          <div class="bg-white rounded-2xl p-4 border border-stone-200">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-stone-400 block">Reality Check Score</span>
+            <span class="font-serif text-2xl font-bold text-sage-600">${answeredCount > 0 ? `${correctCount} / ${QUIZ_SCENARIOS.length}` : 'Not started'}</span>
+          </div>
+        </div>
+
+        <div class="space-y-2.5">
+          <h5 class="text-xs font-bold uppercase tracking-wider text-stone-500">Your Saved Infographics</h5>
+          ${savedCards.length === 0 ? `
+            <p class="text-xs text-stone-500 bg-white rounded-2xl p-4 border border-stone-200">
+              No saved cards yet. Click the bookmark icon on any card in the Infographic Studio to save it here.
+            </p>
+          ` : `
+            <div class="space-y-2 max-h-56 overflow-y-auto pr-1">
+              ${savedCards.map(card => `
+                <div class="flex items-center justify-between gap-3 bg-white rounded-xl p-3 border border-stone-200">
+                  <div class="min-w-0">
+                    <span class="text-[10px] font-bold uppercase text-sage-600 block">${card.number} • ${card.category}</span>
+                    <p class="text-xs font-semibold text-charcoal truncate">${card.modernHeadline}</p>
+                  </div>
+                  <div class="flex items-center gap-2 shrink-0">
+                    <button onclick="closeProfileModal(); openShareModal('${card.id}')" class="px-2.5 py-1.5 rounded-lg bg-sage-100 text-sage-800 text-[11px] font-semibold hover:bg-sage-200">Share</button>
+                    <button onclick="toggleSaveCard('${card.id}'); renderProfileModalBody()" class="px-2.5 py-1.5 rounded-lg bg-stone-100 text-stone-600 text-[11px] font-semibold hover:bg-blush-100 hover:text-blush-700">Remove</button>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          `}
+        </div>
+      `;
+    }
+
+    // =========================================================
+    // 12. MOBILE MENU, TOAST HELPER & BOOTSTRAP
+    // =========================================================
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      const btn = document.getElementById('mobile-menu-btn');
+      const isHidden = menu.classList.contains('hidden');
+      menu.classList.toggle('hidden', !isHidden);
+      btn.setAttribute('aria-expanded', String(isHidden));
+    }
+
+    function closeMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      const btn = document.getElementById('mobile-menu-btn');
+      if (menu) menu.classList.add('hidden');
+      if (btn) btn.setAttribute('aria-expanded', 'false');
+    }
+
+    let toastTimeout = null;
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-message').textContent = message;
+      toast.classList.remove('hidden');
+      toast.classList.add('flex');
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.add('hidden');
+        toast.classList.remove('flex');
+      }, 3000);
+    }
+
+    // =========================================================
+    // 13. REDDIT-STYLE COMMUNITY FORUM (r/BeyondLabels)
+    // =========================================================
+    const FORUM_STORAGE_KEY = 'beyond_labels_forum_v1';
+    const FORUM_FLAIRS = ['ALL', 'Media & Ads', 'Social Algorithms', 'Personal Story', 'Research & Articles'];
+    let selectedForumFlair = 'ALL';
+    let forumSortBy = 'top';
+    let expandedThreads = new Set(['post-1']);
+    let activeReplyTarget = null; // { postId, commentId }
+
+    const SEED_FORUM_POSTS = [
+      {
+        id: 'post-1',
+        flair: 'Media & Ads',
+        title: 'Why do modern dish-soap and laundry ads still mostly cast mothers as the "home expert"?',
+        body: 'Even in 2026, I still see commercials where the dad is portrayed as clueless with a washing machine while the mom steps in to "save the day." It feels subtle, but kids watching these ads every evening internalize who is responsible for housework.',
+        source: 'Eisend (2010), Journal of the Academy of Marketing Science',
+        author: 'Maya Lin',
+        authorEmail: 'maya@beyondlabels.org',
+        createdAt: Date.now() - 86400000 * 2,
+        timeLabel: '2 days ago',
+        baseScore: 42,
+        votes: {},
+        comments: [
+          {
+            id: 'c-101',
+            author: 'Daniel Park',
+            text: 'Agreed! The "incompetent dad" trope hurts both sides—it makes mothers carry the default mental load and suggests men aren’t capable caregivers.',
+            timeLabel: '1 day ago',
+            replies: [
+              {
+                id: 'r-1011',
+                author: 'Maya Lin',
+                text: 'Exactly. Showing partners splitting chores casually without making it a joke is way more realistic.',
+                timeLabel: '22 hours ago'
+              }
+            ]
+          },
+          {
+            id: 'c-102',
+            author: 'Nadia Patel',
+            text: 'In our media literacy class, we swapped the genders in 5 vintage ads and it immediately exposed how absurd the scripts were.',
+            timeLabel: '18 hours ago',
+            replies: []
+          }
+        ]
+      },
+      {
+        id: 'post-2',
+        flair: 'Social Algorithms',
+        title: 'How I reset my short-form video feed away from toxic body-image & "alpha" stereotypes',
+        body: 'My Reels and TikTok feed kept pushing extreme gym transformations and "men shouldn’t cry" clips. Spending one week actively clicking "Not Interested" and following cooking, art, and science creators completely changed my feed.',
+        source: '',
+        author: 'Jordan Rivera',
+        authorEmail: 'jordan@example.com',
+        createdAt: Date.now() - 86400000,
+        timeLabel: '1 day ago',
+        baseScore: 31,
+        votes: {},
+        comments: [
+          {
+            id: 'c-201',
+            author: 'Samira Chen',
+            text: 'Engagement algorithms optimize for watch time, not our mental health. Curating your feed intentionally is such an underrated skill.',
+            timeLabel: '14 hours ago',
+            replies: []
+          }
+        ]
+      },
+      {
+        id: 'post-3',
+        flair: 'Research & Articles',
+        title: 'Research takeaway: Seeing counter-stereotypical leaders actually lowers implicit bias',
+        body: 'I loved reading Dasgupta & Asgari (2004) in the quiz section—it proves that positive representation in movies, classrooms, and online communities isn’t just "nice to have," it measurably changes automatic assumptions.',
+        source: 'https://doi.org/10.1016/j.jesp.2004.02.003',
+        author: 'Alex Kim',
+        authorEmail: 'alex@example.com',
+        createdAt: Date.now() - 43200000,
+        timeLabel: '12 hours ago',
+        baseScore: 27,
+        votes: {},
+        comments: []
+      }
+    ];
+
+    function getForumPosts() {
+      try {
+        const raw = localStorage.getItem(FORUM_STORAGE_KEY);
+        if (!raw) {
+          localStorage.setItem(FORUM_STORAGE_KEY, JSON.stringify(SEED_FORUM_POSTS));
+          return JSON.parse(JSON.stringify(SEED_FORUM_POSTS));
+        }
+        return JSON.parse(raw);
+      } catch {
+        return JSON.parse(JSON.stringify(SEED_FORUM_POSTS));
+      }
+    }
+
+    function saveForumPosts(posts) {
+      localStorage.setItem(FORUM_STORAGE_KEY, JSON.stringify(posts));
+    }
+
+    function getPostScore(post) {
+      const voteSum = Object.values(post.votes || {}).reduce((acc, val) => acc + val, 0);
+      return (post.baseScore || 0) + voteSum;
+    }
+
+    function countAllComments(post) {
+      return (post.comments || []).reduce((sum, c) => sum + 1 + (c.replies ? c.replies.length : 0), 0);
+    }
+
+    function setForumFlair(flair) {
+      selectedForumFlair = flair;
+      renderForum();
+    }
+
+    function setForumSort(sortBy) {
+      forumSortBy = sortBy;
+      renderForum();
+    }
+
+    function toggleThreadExpand(postId) {
+      if (expandedThreads.has(postId)) {
+        expandedThreads.delete(postId);
+      } else {
+        expandedThreads.add(postId);
+      }
+      renderForum();
+    }
+
+    function voteForumPost(postId, direction) {
+      if (!currentUser) {
+        showToast('Please log in to upvote or downvote posts.');
+        openAuthModal('login');
+        return;
+      }
+      const posts = getForumPosts();
+      const post = posts.find(p => p.id === postId);
+      if (!post) return;
+      post.votes = post.votes || {};
+      const prev = post.votes[currentUser.email] || 0;
+      post.votes[currentUser.email] = prev === direction ? 0 : direction;
+      saveForumPosts(posts);
+      renderForum();
+    }
+
+    function openForumPostModal() {
+      if (!currentUser) {
+        showToast('Please log in to start a discussion.');
+        openAuthModal('login');
+        return;
+      }
+      document.getElementById('forum-post-title').value = '';
+      document.getElementById('forum-post-body').value = '';
+      document.getElementById('forum-post-source').value = '';
+      const modal = document.getElementById('forum-post-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeForumPostModal() {
+      const modal = document.getElementById('forum-post-modal');
+      if (!modal) return;
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function handleForumPostSubmit(event) {
+      event.preventDefault();
+      if (!currentUser) return;
+      const flair = document.getElementById('forum-post-flair').value;
+      const title = document.getElementById('forum-post-title').value.trim();
+      const body = document.getElementById('forum-post-body').value.trim();
+      const source = document.getElementById('forum-post-source').value.trim();
+      if (!title || !body) return;
+
+      const posts = getForumPosts();
+      const newPost = {
+        id: 'post-' + Date.now(),
+        flair,
+        title,
+        body,
+        source,
+        author: currentUser.name,
+        authorEmail: currentUser.email,
+        createdAt: Date.now(),
+        timeLabel: 'Just now',
+        baseScore: 1,
+        votes: { [currentUser.email]: 1 },
+        comments: []
+      };
+      posts.unshift(newPost);
+      saveForumPosts(posts);
+      expandedThreads.add(newPost.id);
+      closeForumPostModal();
+      renderForum();
+      showToast('Discussion posted to r/BeyondLabels!');
+    }
+
+    function addForumComment(event, postId) {
+      event.preventDefault();
+      if (!currentUser) {
+        showToast('Please log in to join the discussion.');
+        openAuthModal('login');
+        return;
+      }
+      const input = document.getElementById(`comment-input-${postId}`);
+      const text = input ? input.value.trim() : '';
+      if (!text) return;
+
+      const posts = getForumPosts();
+      const post = posts.find(p => p.id === postId);
+      if (!post) return;
+      post.comments = post.comments || [];
+      post.comments.push({
+        id: 'c-' + Date.now(),
+        author: currentUser.name,
+        text,
+        timeLabel: 'Just now',
+        replies: []
+      });
+      saveForumPosts(posts);
+      expandedThreads.add(postId);
+      renderForum();
+      showToast('Comment added!');
+    }
+
+    function openReplyBox(postId, commentId) {
+      if (!currentUser) {
+        showToast('Please log in to reply.');
+        openAuthModal('login');
+        return;
+      }
+      activeReplyTarget = (activeReplyTarget && activeReplyTarget.commentId === commentId)
+        ? null
+        : { postId, commentId };
+      renderForum();
+    }
+
+    function addForumReply(event, postId, commentId) {
+      event.preventDefault();
+      if (!currentUser) return;
+      const input = document.getElementById(`reply-input-${commentId}`);
+      const text = input ? input.value.trim() : '';
+      if (!text) return;
+
+      const posts = getForumPosts();
+      const post = posts.find(p => p.id === postId);
+      const comment = post && (post.comments || []).find(c => c.id === commentId);
+      if (!comment) return;
+
+      comment.replies = comment.replies || [];
+      comment.replies.push({
+        id: 'r-' + Date.now(),
+        author: currentUser.name,
+        text,
+        timeLabel: 'Just now'
+      });
+      activeReplyTarget = null;
+      saveForumPosts(posts);
+      renderForum();
+      showToast('Reply posted!');
+    }
+
+    function renderForum() {
+      const flairBar = document.getElementById('forum-flair-filters');
+      const feed = document.getElementById('forum-feed');
+      if (!flairBar || !feed) return;
+
+      flairBar.innerHTML = FORUM_FLAIRS.map(flair => {
+        const isActive = selectedForumFlair === flair;
+        return `
+          <button onclick="setForumFlair('${flair}')" class="px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
+            isActive ? 'bg-charcoal text-white' : 'bg-cream text-stone-600 hover:bg-stone-100 border border-stone-200'
+          }">
+            ${flair === 'ALL' ? 'All Topics' : escapeHtml(flair)}
+          </button>
+        `;
+      }).join('');
+
+      let posts = getForumPosts();
+      if (selectedForumFlair !== 'ALL') {
+        posts = posts.filter(p => p.flair === selectedForumFlair);
+      }
+      posts.sort((a, b) => {
+        if (forumSortBy === 'newest') return (b.createdAt || 0) - (a.createdAt || 0);
+        return getPostScore(b) - getPostScore(a);
+      });
+
+      if (posts.length === 0) {
+        feed.innerHTML = `
+          <div class="bg-white rounded-3xl border border-stone-200 p-8 text-center text-sm text-stone-500">
+            No discussions in this topic yet. Start the first thread!
+          </div>
+        `;
+        return;
+      }
+
+      feed.innerHTML = posts.map(post => {
+        const score = getPostScore(post);
+        const userVote = currentUser && post.votes ? (post.votes[currentUser.email] || 0) : 0;
+        const commentCount = countAllComments(post);
+        const isExpanded = expandedThreads.has(post.id);
+
+        return `
+          <article class="bg-white rounded-3xl border border-stone-200/90 shadow-sm overflow-hidden">
+            <div class="flex">
+              <!-- Reddit-Style Vote Column -->
+              <div class="w-14 sm:w-16 bg-cream/70 border-r border-stone-100 flex flex-col items-center justify-start pt-5 pb-4 gap-1 shrink-0">
+                <button onclick="voteForumPost('${post.id}', 1)" aria-label="Upvote post" class="p-1.5 rounded-lg transition-colors ${
+                  userVote === 1 ? 'bg-sage-100 text-sage-800' : 'text-stone-400 hover:bg-stone-100 hover:text-charcoal'
+                }">
+                  <svg class="w-5 h-5" fill="${userVote === 1 ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/>
+                  </svg>
+                </button>
+                <span class="text-xs font-bold ${userVote === 1 ? 'text-sage-800' : userVote === -1 ? 'text-blush-700' : 'text-charcoal'}">${score}</span>
+                <button onclick="voteForumPost('${post.id}', -1)" aria-label="Downvote post" class="p-1.5 rounded-lg transition-colors ${
+                  userVote === -1 ? 'bg-blush-100 text-blush-700' : 'text-stone-400 hover:bg-stone-100 hover:text-charcoal'
+                }">
+                  <svg class="w-5 h-5" fill="${userVote === -1 ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                  </svg>
+                </button>
+              </div>
+
+              <!-- Post Body -->
+              <div class="flex-1 p-5 sm:p-6 space-y-3 min-w-0">
+                <div class="flex flex-wrap items-center gap-2 text-xs text-stone-500">
+                  <span class="px-2.5 py-0.5 rounded-full bg-sage-50 border border-sage-200 text-sage-800 text-[11px] font-bold">
+                    ${escapeHtml(post.flair)}
+                  </span>
+                  <span>Posted by <strong class="text-charcoal">u/${escapeHtml(post.author.replace(/\s+/g, ''))}</strong></span>
+                  <span>•</span>
+                  <span>${escapeHtml(post.timeLabel)}</span>
+                </div>
+
+                <h3 onclick="toggleThreadExpand('${post.id}')" class="font-serif text-lg sm:text-xl font-semibold text-charcoal leading-snug cursor-pointer hover:text-sage-800 transition-colors">
+                  ${escapeHtml(post.title)}
+                </h3>
+
+                <p class="text-sm text-stone-600 leading-relaxed">
+                  ${escapeHtml(post.body)}
+                </p>
+
+                ${post.source ? `
+                  <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-paper border border-stone-200 text-[11px] font-medium text-stone-600">
+                    <span class="font-bold text-sage-800">Source:</span>
+                    ${post.source.startsWith('http')
+                      ? `<a href="${escapeHtml(post.source)}" target="_blank" rel="noopener noreferrer" class="text-sage-600 underline hover:text-sage-800 break-all">${escapeHtml(post.source)}</a>`
+                      : `<span>${escapeHtml(post.source)}</span>`
+                    }
+                  </div>
+                ` : ''}
+
+                <!-- Action Bar -->
+                <div class="pt-1 flex items-center gap-4">
+                  <button onclick="toggleThreadExpand('${post.id}')" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-paper hover:bg-stone-200/70 text-xs font-semibold text-stone-700 transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                    </svg>
+                    <span>${commentCount} ${commentCount === 1 ? 'Comment' : 'Comments'}</span>
+                  </button>
+                </div>
+
+                <!-- Expanded Threaded Comments -->
+                ${isExpanded ? `
+                  <div class="pt-4 mt-3 border-t border-stone-100 space-y-4 animate-fade-up">
+                    ${currentUser ? `
+                      <form onsubmit="addForumComment(event, '${post.id}')" class="flex gap-2">
+                        <input id="comment-input-${post.id}" type="text" required maxlength="300" placeholder="Add a thoughtful comment..." class="flex-1 rounded-xl border border-stone-300 bg-cream/60 px-3.5 py-2 text-xs sm:text-sm text-charcoal focus:outline-none focus:ring-2 focus:ring-sage-500" />
+                        <button type="submit" class="px-4 py-2 rounded-xl bg-sage-600 hover:bg-sage-800 text-white text-xs font-semibold transition-colors shrink-0">
+                          Comment
+                        </button>
+                      </form>
+                    ` : `
+                      <div class="flex items-center justify-between gap-3 rounded-xl bg-cream border border-stone-200 px-3.5 py-2.5 text-xs text-stone-600">
+                        <span>Log in to join the conversation and vote on posts.</span>
+                        <button onclick="openAuthModal('login')" class="px-3 py-1 rounded-lg bg-charcoal text-white font-semibold hover:bg-sage-800 shrink-0">Log In</button>
+                      </div>
+                    `}
+
+                    <div class="space-y-3">
+                      ${(post.comments || []).length === 0 ? `
+                        <p class="text-xs text-stone-400 italic">No comments yet. Be the first to share your perspective.</p>
+                      ` : (post.comments || []).map(c => `
+                        <div class="pl-3.5 border-l-2 border-sage-200 space-y-2">
+                          <div class="space-y-1">
+                            <div class="flex items-center gap-2 text-[11px] text-stone-500">
+                              <strong class="text-charcoal">u/${escapeHtml(c.author.replace(/\s+/g, ''))}</strong>
+                              <span>•</span>
+                              <span>${escapeHtml(c.timeLabel)}</span>
+                            </div>
+                            <p class="text-xs sm:text-sm text-stone-700 leading-relaxed">${escapeHtml(c.text)}</p>
+                            <button onclick="openReplyBox('${post.id}', '${c.id}')" class="text-[11px] font-bold text-sage-600 hover:text-sage-800">
+                              Reply
+                            </button>
+                          </div>
+
+                          ${activeReplyTarget && activeReplyTarget.commentId === c.id ? `
+                            <form onsubmit="addForumReply(event, '${post.id}', '${c.id}')" class="flex gap-2 pt-1">
+                              <input id="reply-input-${c.id}" type="text" required maxlength="240" placeholder="Reply to u/${escapeHtml(c.author.replace(/\s+/g, ''))}..." class="flex-1 rounded-xl border border-stone-300 bg-white px-3 py-1.5 text-xs text-charcoal focus:outline-none focus:ring-2 focus:ring-sage-500" />
+                              <button type="submit" class="px-3 py-1.5 rounded-xl bg-charcoal text-white text-xs font-semibold">Reply</button>
+                            </form>
+                          ` : ''}
+
+                          ${(c.replies || []).map(r => `
+                            <div class="pl-3.5 border-l-2 border-stone-200 space-y-0.5 pt-1">
+                              <div class="flex items-center gap-2 text-[11px] text-stone-500">
+                                <strong class="text-charcoal">u/${escapeHtml(r.author.replace(/\s+/g, ''))}</strong>
+                                <span>•</span>
+                                <span>${escapeHtml(r.timeLabel)}</span>
+                              </div>
+                              <p class="text-xs text-stone-700 leading-relaxed">${escapeHtml(r.text)}</p>
+                            </div>
+                          `).join('')}
+                        </div>
+                      `).join('')}
+                    </div>
+                  </div>
+                ` : ''}
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeShareModal();
+        closeAuthModal();
+        closeProfileModal();
+        closePhotoStoryModal();
+        closeForumPostModal();
+      }
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      initAuth();
+      renderHeroCard();
+      renderPhotoStories();
+      renderCategoryFilters();
+      renderInfographicGrid();
+      renderQuiz();
+      renderForum();
+      renderPledgeWall();
+    });
+  </script>
+</body>
+</html>
